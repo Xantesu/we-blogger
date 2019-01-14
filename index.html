@@ -17,6 +17,8 @@ and open the template in the editor.
         <script src="./js/model.js" defer></script>
         <script src="./js/presenter.js" defer></script>
         <script src="./js/view.js" defer></script>
+        <link rel="stylesheet" type="text/css" href="./stylesheets/overview.css">
+        <link rel="stylesheet" type="text/css" href="./stylesheets/edit.css">
     </head>
     <body>
 
@@ -64,12 +66,14 @@ and open the template in the editor.
                         <a href="">%blog (%numberPosts Posts)</a>
                     </li>
                 </ul>
+                <select id="select">
+                </select>
             </nav>
 
-            <div id="view-overview-posts">
-                <h1>Uebersicht der Posts</h1>
+            <div id="view-overview-posts" class="overview-posts">
+                <h1>Übersicht der Posts</h1>
                 <header>
-                    <nav>
+                    <nav class="overview-nav">
                         <ul>
                             <li>
                                 <button id="overview-posts-action-blogview">Blogansicht anzeigen</button>
@@ -82,7 +86,8 @@ and open the template in the editor.
                 </header>
                 <article id="post" hidden>
                     <header>
-                        <p>Titel: %title</p>
+                        <p class="title">%title</p>
+                        <p class="divider"></p>
                         <p>Erscheinungsdatum: %published</p>
                         <p>Letzte Änderung: %updated</p>
                         <p>Anzahl Kommentare: %numberComments</p>
@@ -155,10 +160,6 @@ and open the template in the editor.
             <div id="view-edit-post">
                 <h1>Edit Post</h1>
                 <article id="edit-post">
-                    <header>
-                        <p>Erscheinungsdatum: %published</p>
-                        <p>Letzte Änderung: %updated</p>
-                    </header>
 <!--<li>-->
  <!--71 >   >   >   >   >   >   >   <label for="email">Email:</label>-->
  <!--72 >   >   >   >   >   >   >   <input id="email" type="email" name="email">-->
@@ -167,12 +168,13 @@ and open the template in the editor.
  <!--75 >   >   >   >   >   >   >   <button type="button" value="cancel"> Abbrechen </button>-->
  <!--76 >   >   >   >   >   >   >   <button type="submit" value="save"> Speichern </button>-->
  <!--77 >   >   >   >   >   >   </li>-->
-
                     <form class="form" method="get">
-                        <textarea id="title" type="text" name="title" cols="60" rows="8" placeholder="Title">%title</textarea>
-                        <input type="button" class="edit-post-title" value="Titel ändern"></input>
+                        <input id=title" type="text" name="title" placeholder="Title"></input>
+                        <p class="divider"></p>
+                        <!--<textarea id="title" type="text" name="title" cols="60" rows="8" placeholder="Title">%title</textarea>-->
                         <textarea id="content" type="text" name="content" cols="60" rows="8" placeholder="Content">%content</textarea>
-                        <input type="button" class="edit-post-content" value="Inhalt ändern"></input>
+                        <p>Erscheinungsdatum: %published</p>
+                        <p>Letzte Änderung: %updated</p>
                         <nav>
                             <ul>
                                 <li>

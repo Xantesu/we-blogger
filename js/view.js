@@ -16,6 +16,7 @@ const overView = {
             let article = document.getElementById("post").cloneNode(true);
             article.hidden = false;
             article.removeAttribute("id");
+            article.className = "overview-post";
             helper.setDataInfo(post, article, false);
             let navitems = article.getElementsByTagName("li");
 
@@ -83,19 +84,9 @@ const editView = {
         let page = document.getElementById("view-edit-post").cloneNode(true); 
         page.removeAttribute("id");
         helper.setDataInfo(post, page, true);
+        let inputTitle = page.getElementsByTagName("input")[0];
+        inputTitle.value = post.title;
         let buttons = page.getElementsByTagName("button");
-        let inputButtons = page.getElementsByTagName("input");
-        let textareas = page.getElementsByTagName("textarea");
-        let editTitleButton = inputButtons[0];
-        editTitleButton.addEventListener('click', function(){
-            let titleText = textareas[0];
-            titleText.readOnly = !titleText.readOnly;
-        });
-        let editContentButton =inputButtons[1];
-        editContentButton.addEventListener('click', function(){
-            let contentText = textareas[1];
-            contentText.readOnly = !contentText.readOnly;
-        });
         let savePostButton = buttons[0];
         let form = page.querySelector("form");
         savePostButton.addEventListener('click', (event) => {

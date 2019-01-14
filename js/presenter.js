@@ -39,7 +39,7 @@ const presenter = {
                 console.log(this.owner);
 
                 //this.renderHeader(latestBlog);
-                this.renderNavbar(result);
+                this.renderNavbar(result, latestBlog);
 
 
                 router.navigateToPage('/overview/' + this.blogId);
@@ -58,9 +58,6 @@ const presenter = {
 
     renderHeader(latestBlog) {
         let page = document.getElementById("header").cloneNode(true);
-        if(mainheader.firstElementChild){
-            mainheader.firstElementChild.remove();
-        }
         page.removeAttribute("id");
         let cont = page.innerHTML;
         cont = cont.replace("%owner", this.owner);
@@ -70,6 +67,9 @@ const presenter = {
         cont = cont.replace("%updated", this.formatDate(false, latestBlog["updated"]));
         page.innerHTML = cont;
         //let mainheader = document.getElementById("main-header");
+        if(mainheader.firstElementChild){
+            mainheader.firstElementChild.remove();
+        }
         mainheader.append(page);
     },
 
@@ -111,19 +111,16 @@ const presenter = {
         this.blogId = id;
         model.getAllPostsOfBlog(id, (result) => {
             let page = overView.render(result, blog);
+            this.renderHeader(blog);
             this.replace(page);
         })
-        this.renderHeader(model.getBlog(id));
     },
 
     getAmountOfPosts(){
         return model.getBlog(this.blogId).posts.totalItems;
     },
 
-    renderNavbar(blogs) {
-        if(!mainnavbar.hasChildNodes()){
-            return;
-        }
+    renderNavbar(blogs, currentBlog) {
         let page = document.getElementById("blog-navigation").cloneNode(true);
         page.removeAttribute("id");
         let list = page.querySelector("UL");
@@ -136,8 +133,15 @@ const presenter = {
             a.addEventListener('click', router.handleNavigationEvent);
             li.append(a);
             list.appendChild(li);
+
+            select.append(new Option(blog.name, blog.id));
         }
+        select.addEventListener('change', function(event){
+            let id = event.target.value;
+            router.navigateToPage("/overview/" + id);
+        });
         mainnavbar.append(list);
+        mainnavbar.append(select);
     },
 
     // Gibt den Post mit der Id bid aus
