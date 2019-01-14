@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <link rel="shortcut icon" href="">
+        <title>Blogger</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script async defer src="https://apis.google.com/js/api.js"></script>
+        <script src="./js/router.js" defer></script> 
+        <script src="./js/login.js" defer></script>
+        <script src="./js/model.js" defer></script>
+        <script src="./js/presenter.js" defer></script>
+        <script src="./js/view.js" defer></script>
+    </head>
+    <body>
+
+        <div id="view-startseite">
+            <h3>Willkommen bei Blogger!</h3>
+            <button id="sign-in-or-out-button">Anmelden</button>
+            <div id="auth-status"></div><hr>
+        </div>
+
+
+        <header id="mainheader">
+        </header>
+
+        <hr>
+
+        <nav id="mainnavbar">
+        </nav>
+
+        <hr>
+
+        <div id="main-content">
+            
+        </div>
+
+        <hr>
+
+        <footer>
+        </footer>
+
+
+        <br>
+
+        <!----------------------     TEMPLATES       --------------------------------------->
+
+        <div id="templates" hidden>
+            <header id="header">
+                <p>Nutzer: %owner</p>
+                <p>Blog: %name (%numberPosts Posts)</p>
+                <p>Erscheinungsdatum: %published / Letzte Änderung: %updated</p>
+            </header>
+        
+            <nav id="blog-navigation">
+                <ul>
+                    <li id="blog" data-action="/blog">
+                        <a href="">%blog (%numberPosts Posts)</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div id="view-overview-posts">
+                <h1>Uebersicht der Posts</h1>
+                <header>
+                    <nav>
+                        <ul>
+                            <li>
+                                <button id="overview-posts-action-blogview">Blogansicht anzeigen</button>
+                            </li>
+                            <li>
+                                <button data-action="/edit" class="000" id="action-addpost">Post hinzufügen</button>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
+                <article id="post" hidden>
+                    <header>
+                        <p>Titel: %title</p>
+                        <p>Erscheinungsdatum: %published</p>
+                        <p>Letzte Änderung: %updated</p>
+                        <p>Anzahl Kommentare: %numberComments</p>
+                    </header>
+                    <footer>
+                        <nav id="post-navigation">
+                            <ul>
+                                <li>
+                                    <button class="overview-posts-opendetail" data-action="/detail">Detailansicht</button>
+                                </li>
+                                <li>
+                                    <button class="overview-posts-deletepost" data-action="/detail">Löschen</button>
+                                </li>
+                                <li>
+                                    <button class="overview-posts-editpost" data-action="/edit">Editieren</button>
+                                </li>
+                            </ul>
+                        </nav>                            
+                    </footer>
+                </article>
+            </div>
+            
+            <div id=view-detail-post>
+                <h1>Detailansicht</h1>
+                <article id="detail-post">
+                    <header>
+                        <p>Title: %title</p>
+                        <p>Erscheinungsdatum: %published</p>
+                        <p>Letzte Änderung: %updated</p>
+                    </header>
+                    <section>
+                        <p>Inhalt: %content</p>
+                    </section>
+                    <footer>
+                        <nav>
+                            <ul>
+                                <li>
+                                    <button>Post loeschen</button>
+                                </li>
+                                <li>
+                                    <button data-action="/edit">Post editieren</button>
+                                </li>
+                                <li>
+                                    <button data-action="/overview">zurück</button>
+                                </li>
+                            </ul>
+                        </nav>
+                    </footer>
+                </article>
+                <article id="comment" hidden>
+                    <header>
+                        <p>Autor: %author</p>
+                        <p>geschrieben am: %published</p>
+                    </header>
+                    <section>
+                        <p>Inhalt: %content</p>
+                    </section>
+                    <footer>
+                        <nav>
+                            <ul>
+                                <li>
+                                    <button id="detail-post-deletecomment">Kommentar loeschen</button>                 
+                                </li>
+                            </ul>
+                        </nav>
+                    </footer>
+                </article>
+            </div>
+
+            <div id="view-edit-post">
+                <h1>Edit Post</h1>
+                <article id="edit-post">
+                    <header>
+                        <p>Erscheinungsdatum: %published</p>
+                        <p>Letzte Änderung: %updated</p>
+                    </header>
+<!--<li>-->
+ <!--71 >   >   >   >   >   >   >   <label for="email">Email:</label>-->
+ <!--72 >   >   >   >   >   >   >   <input id="email" type="email" name="email">-->
+ <!--73 >   >   >   >   >   >   </li>-->
+ <!--74 >   >   >   >   >   >   <li>-->
+ <!--75 >   >   >   >   >   >   >   <button type="button" value="cancel"> Abbrechen </button>-->
+ <!--76 >   >   >   >   >   >   >   <button type="submit" value="save"> Speichern </button>-->
+ <!--77 >   >   >   >   >   >   </li>-->
+
+                    <form class="form" method="get">
+                        <textarea id="title" type="text" name="title" cols="60" rows="8" placeholder="Title">%title</textarea>
+                        <input type="button" class="edit-post-title" value="Titel ändern"></input>
+                        <textarea id="content" type="text" name="content" cols="60" rows="8" placeholder="Content">%content</textarea>
+                        <input type="button" class="edit-post-content" value="Inhalt ändern"></input>
+                        <nav>
+                            <ul>
+                                <li>
+                                    <button type="submit" value"save" class="edit-post-action-save">Speichern</button>                                        
+                                </li>
+                                <li>
+                                    <button type="button" value="cancel" class="edit-post-action-abort">Abbrechen</button>
+                                </li>
+                            </ul>
+                        </nav>
+                    </form>
+                </article>
+            </div>
+
+
+        </div>
+    </body>
+</html>
