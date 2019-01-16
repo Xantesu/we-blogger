@@ -1,0 +1,28 @@
+#detail-post ul li {
+    display: inline;
+    margin-right: 5px;
+}
+
+#detail-post ul {
+    padding: 0;
+}
+
+#detail-post p {
+    line-height: 10px;
+}
+
+#detail-post .date {
+    font-size: 15px;
+}
+
+#detail-post .title {
+    line-height: 1px;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+#detail-post .divider {
+    width: 95%;
+    height: 1px;
+    background-color: rgb(200, 200, 200);
+}

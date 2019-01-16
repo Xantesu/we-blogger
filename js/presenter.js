@@ -56,6 +56,31 @@ const presenter = {
         }
     },
 
+    getNavbar(blogs) {
+        let page = document.getElementById("blog-navigation").cloneNode(true); 
+        page.removeAttribute("id");
+        let select = page.getElementsByTagName("select")[0];
+        for (let blog of blogs) {
+            //select.append(new Option(blog.name, blog.id));
+            select.append(new Option(blog.name + " (" + blog.posts.totalItems + " Posts) Erscheinungsdatum: " + this.formatDate(false, blog.published) + " / Letzte Änderung:" +  this.formatDate(false, blog.updated), blog.id));
+        }
+        select.addEventListener('change', function(event){
+            let id = event.target.value;
+            router.navigateToPage("/overview/" + id);
+        });
+        return page;
+    },
+    
+    renderNavbar(blogs, currentBlog) {
+        let page = document.getElementById("headertemp").cloneNode(true);
+        page.removeAttribute("id");
+        page.innerHTML = page.innerHTML.replace("%owner", this.owner);
+        let li = page.getElementsByTagName("li")[1];
+        li.append(this.getNavbar(blogs));
+        this.getNavbar(blogs);
+        mainheader.append(page);
+    },
+
     renderHeader(latestBlog) {
         let page = document.getElementById("header").cloneNode(true);
         page.removeAttribute("id");
@@ -111,7 +136,7 @@ const presenter = {
         this.blogId = id;
         model.getAllPostsOfBlog(id, (result) => {
             let page = overView.render(result, blog);
-            this.renderHeader(blog);
+            /*this.renderHeader(blog);*/
             this.replace(page);
         })
     },
@@ -120,29 +145,6 @@ const presenter = {
         return model.getBlog(this.blogId).posts.totalItems;
     },
 
-    renderNavbar(blogs, currentBlog) {
-        let page = document.getElementById("blog-navigation").cloneNode(true);
-        page.removeAttribute("id");
-        let list = page.querySelector("UL");
-        list.firstElementChild.remove();
-        for (let blog of blogs) {
-            let li = document.getElementById("blog").cloneNode(true);
-            let a = li.getElementsByTagName("a")[0];
-            a.href = "/overview/" + blog["id"];
-            a.innerHTML = li.innerHTML.replace("%blog", blog["name"]).replace("%numberPosts", blog["posts"].totalItems);
-            a.addEventListener('click', router.handleNavigationEvent);
-            li.append(a);
-            list.appendChild(li);
-
-            select.append(new Option(blog.name, blog.id));
-        }
-        select.addEventListener('change', function(event){
-            let id = event.target.value;
-            router.navigateToPage("/overview/" + id);
-        });
-        mainnavbar.append(list);
-        mainnavbar.append(select);
-    },
 
     // Gibt den Post mit der Id bid aus
     renderPostsOfBlog(bid) {

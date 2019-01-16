@@ -1,0 +1,27 @@
+#mainheader ul{
+    background-color: #26260d;
+    color: white;
+    height: 50px;
+    list-style-type: none;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+#mainheader ul li {
+    display: inline-block;
+}
+
+#mainheader ul li nav {
+
+}
+
+#mainheader .logo {
+    float: left;
+    font-size: 30px;
+}
+
+#mainheader .login{
+    float: right;
+}
+

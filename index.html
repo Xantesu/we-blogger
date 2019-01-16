@@ -19,31 +19,30 @@ and open the template in the editor.
         <script src="./js/view.js" defer></script>
         <link rel="stylesheet" type="text/css" href="./stylesheets/overview.css">
         <link rel="stylesheet" type="text/css" href="./stylesheets/edit.css">
+        <link rel="stylesheet" type="text/css" href="./stylesheets/detail.css">
+        <link rel="stylesheet" type="text/css" href="./stylesheets/header.css">
     </head>
     <body>
 
         <div id="view-startseite">
-            <h3>Willkommen bei Blogger!</h3>
-            <button id="sign-in-or-out-button">Anmelden</button>
-            <div id="auth-status"></div><hr>
+            <!--<h3>Willkommen bei Blogger!</h3>-->
+            <!--<button id="sign-in-or-out-button">Anmelden</button>-->
+            <!--<div id="auth-status"></div><hr>-->
         </div>
 
 
         <header id="mainheader">
         </header>
 
-        <hr>
 
         <nav id="mainnavbar">
         </nav>
 
-        <hr>
 
         <div id="main-content">
             
         </div>
 
-        <hr>
 
         <footer>
         </footer>
@@ -54,21 +53,24 @@ and open the template in the editor.
         <!----------------------     TEMPLATES       --------------------------------------->
 
         <div id="templates" hidden>
-            <header id="header">
-                <p>Nutzer: %owner</p>
-                <p>Blog: %name (%numberPosts Posts)</p>
-                <p>Erscheinungsdatum: %published / Letzte Änderung: %updated</p>
-            </header>
+            <!--<header id="header">-->
+                <!--<p>Nutzer: %owner</p>-->
+                <!--<p>Blog: %name (%numberPosts Posts)</p>-->
+                <!--<p>Erscheinungsdatum: %published / Letzte Änderung: %updated</p>-->
+            <!--</header>-->
         
             <nav id="blog-navigation">
-                <ul>
-                    <li id="blog" data-action="/blog">
-                        <a href="">%blog (%numberPosts Posts)</a>
-                    </li>
-                </ul>
                 <select id="select">
                 </select>
             </nav>
+
+            <header id="headertemp">
+                <ul>
+                    <li class="logo">Blogger</li>
+                    <li class="navigation"></li>
+                    <li class="login">Eingeloggt: %owner <button id="sign-in-or-out-button">Anmelden</button></li>
+                </ul>
+            </header>
 
             <div id="view-overview-posts" class="overview-posts">
                 <h1>Übersicht der Posts</h1>
@@ -114,9 +116,10 @@ and open the template in the editor.
                 <h1>Detailansicht</h1>
                 <article id="detail-post">
                     <header>
-                        <p>Title: %title</p>
-                        <p>Erscheinungsdatum: %published</p>
-                        <p>Letzte Änderung: %updated</p>
+                        <p class="title">Title: %title</p>
+                        <p class="date">Erscheinungsdatum: %published</p>
+                        <p class="date">Letzte Änderung: %updated</p>
+                        <p class="divider"></p>
                     </header>
                     <section>
                         <p>Inhalt: %content</p>
