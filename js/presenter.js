@@ -39,7 +39,7 @@ const presenter = {
                 console.log(this.owner);
 
                 //this.renderHeader(latestBlog);
-                this.renderNavbar(result, latestBlog);
+                //this.renderNavbar(result, latestBlog);
 
 
                 router.navigateToPage('/overview/' + this.blogId);
@@ -56,28 +56,32 @@ const presenter = {
         }
     },
 
-    getNavbar(blogs) {
+    getNavbar(blogs, currentBlog) {
+        console.log(currentBlog);
         let page = document.getElementById("blog-navigation").cloneNode(true); 
         page.removeAttribute("id");
         let select = page.getElementsByTagName("select")[0];
         for (let blog of blogs) {
-            //select.append(new Option(blog.name, blog.id));
             select.append(new Option(blog.name + " (" + blog.posts.totalItems + " Posts) Erscheinungsdatum: " + this.formatDate(false, blog.published) + " / Letzte Änderung:" +  this.formatDate(false, blog.updated), blog.id));
         }
         select.addEventListener('change', function(event){
             let id = event.target.value;
             router.navigateToPage("/overview/" + id);
         });
+        select.value = currentBlog.id;
         return page;
     },
     
     renderNavbar(blogs, currentBlog) {
+        console.log(currentBlog);
         let page = document.getElementById("headertemp").cloneNode(true);
         page.removeAttribute("id");
         page.innerHTML = page.innerHTML.replace("%owner", this.owner);
         let li = page.getElementsByTagName("li")[1];
-        li.append(this.getNavbar(blogs));
-        this.getNavbar(blogs);
+        li.append(this.getNavbar(blogs, currentBlog));
+        if(mainheader.firstElementChild){
+            mainheader.firstElementChild.remove();
+        }
         mainheader.append(page);
     },
 
@@ -133,12 +137,14 @@ const presenter = {
 
     showOverview(id) {
         let blog = model.getBlog(id);
+        console.log(blog);
         this.blogId = id;
         model.getAllPostsOfBlog(id, (result) => {
             let page = overView.render(result, blog);
             /*this.renderHeader(blog);*/
             this.replace(page);
         })
+        model.getAllBlogs((result) => this.renderNavbar(result, blog));
     },
 
     getAmountOfPosts(){
@@ -182,24 +188,34 @@ const presenter = {
         model.deleteComment(this.blogId, pId, cId, (result) => console.log(result));
     },
 
+    refreshAll(){
+        model.getAllBlogs((result) => {
+            console.log("Refreshed Blogs.");
+            model.getAllPostsOfBlog(this.blogId, (result) => {
+                console.log("Refreshed Posts."); 
+                if (router.routeHistory[0] === ""){
+                    router.navigateToPage(router.routeHistory[1]);
+                } else if(router.routeHistory[1].split("/")[1] === "overview") {
+                    router.navigateToPage(router.routeHistory[1]); 
+                } else {
+                    router.navigateToPage(router.routeHistory[0]);
+                }
+            }); 
+        });
+    },
+
     deletePost(pId){
         model.deletePost(this.blogId, pId, (result) => console.log(result));
+        this.refreshAll();
     },
 
     createPost(title, content){
         model.addNewPost(this.blogId, title, content, (result) => console.log(result));
+        this.refreshAll();
     },
 
     updatePost(pid, title, content){
         model.updatePost(this.blogId, pid, title, content, (result) => console.log(result)); 
-    },
-
-    refreshModelBlogs(){
-        model.getAllBlogs((result) => console.log("Refreshed Blogs."));
-    },
-
-    refreshModelPosts(){
-        model.getAllPostsOfBlog(this.blogId, (result) => console.log("Refreshed Posts."));
     },
 
     createPostContent(content) {

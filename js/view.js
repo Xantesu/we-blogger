@@ -95,18 +95,6 @@ const editView = {
             if(!post.id){
                 presenter.createPost(title, content);
                 console.log("Dieser Post wurde erfolgreich erstellt.");
-                //while(presenter.getAmountOfPosts() < amountOfPosts+1){
-                    //console.log(presenter.getAmountOfPosts());
-                //};
-                setTimeout(function(){
-                    presenter.refreshModelBlogs();
-                }, 500);
-                setTimeout(function(){
-                    presenter.refreshModelPosts();
-                }, 500);
-                setTimeout(function(){
-                    router.navigateToPage('/overview/' + presenter.blogId);
-                }, 500);
             } else {
                 presenter.updatePost(post.id, title, content);
                 console.log("Dieser Post wurde erfolgreich überarbeitet.");
@@ -148,15 +136,6 @@ const helper = {
         if(confirm("Möchten Sie wirklich diesen Post löschen?")){
             presenter.deletePost(pId);
             console.log("Der Post wurde erfolgreich gelöscht.");
-            setTimeout(function(){
-                presenter.refreshModelBlogs();
-            }, 500);
-            setTimeout(function(){
-                presenter.refreshModelPosts();
-            }, 500);
-            setTimeout(function(){
-                router.navigateToPage('/overview/' + presenter.blogId);
-            }, 500);
         }
     },
 

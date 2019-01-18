@@ -3,6 +3,19 @@ body {
     background-color: rgb(250, 250, 240);
 }
 
+button:hover {
+    border: 1px solid #696968;
+}
+
+button {
+    border-radius: 5px;
+    border: 1px solid transparent;
+    padding: 8px;
+    color: rgb(70, 70, 70);
+    background-color: rgb(240, 240, 240);
+}
+
+
 article {
     background-color: white;
     width: 60%;
