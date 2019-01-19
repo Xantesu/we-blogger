@@ -57,11 +57,10 @@ const presenter = {
     },
 
     getNavbar(blogs, currentBlog) {
-        console.log(currentBlog);
         let page = document.getElementById("blog-navigation").cloneNode(true); 
         page.removeAttribute("id");
         let select = page.getElementsByTagName("select")[0];
-        for (let blog of blogs) {
+        for (let [id, blog] of blogs) {
             select.append(new Option(blog.name + " (" + blog.posts.totalItems + " Posts) Erscheinungsdatum: " + this.formatDate(false, blog.published) + " / Letzte Änderung:" +  this.formatDate(false, blog.updated), blog.id));
         }
         select.addEventListener('change', function(event){
@@ -73,7 +72,6 @@ const presenter = {
     },
     
     renderNavbar(blogs, currentBlog) {
-        console.log(currentBlog);
         let page = document.getElementById("headertemp").cloneNode(true);
         page.removeAttribute("id");
         page.innerHTML = page.innerHTML.replace("%owner", this.owner);
@@ -137,18 +135,15 @@ const presenter = {
 
     showOverview(id) {
         let blog = model.getBlog(id);
-        console.log(model.blogMap)
         console.log(blog);
-        while(!blog){
-            blog = model.getBlog(id);
-        }
         this.blogId = id;
         model.getAllPostsOfBlog(id, (result) => {
             let page = overView.render(result, blog);
             /*this.renderHeader(blog);*/
             this.replace(page);
         })
-        model.getAllBlogs((result) => this.renderNavbar(result, blog));
+/*         model.getAllBlogs((result) => this.renderNavbar(result, blog)); */
+        this.renderNavbar(model.blogMap, blog);
     },
 
     getAmountOfPosts(){
@@ -201,7 +196,6 @@ const presenter = {
                     router.navigateToPage(router.routeHistory[1]);
                 } else if(router.routeHistory[1].split("/")[1] === "overview") {
                     router.navigateToPage(router.routeHistory[1]); 
-                    console.log("GEHE WIEDER Zur GLEICHEN SEITE");
                 } else {
                     router.navigateToPage(router.routeHistory[0]);
                 }
@@ -215,7 +209,7 @@ const presenter = {
     },
 
     createPost(title, content){
-        model.addNewPost(this.blogId, title, content, (result) => console.log(result));
+        model.addNewPost(this.blogId, title, content, (result) => console.log(""));
         this.refreshAll();
     },
 
