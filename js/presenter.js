@@ -137,7 +137,11 @@ const presenter = {
 
     showOverview(id) {
         let blog = model.getBlog(id);
+        console.log(model.blogMap)
         console.log(blog);
+        while(!blog){
+            blog = model.getBlog(id);
+        }
         this.blogId = id;
         model.getAllPostsOfBlog(id, (result) => {
             let page = overView.render(result, blog);
@@ -197,6 +201,7 @@ const presenter = {
                     router.navigateToPage(router.routeHistory[1]);
                 } else if(router.routeHistory[1].split("/")[1] === "overview") {
                     router.navigateToPage(router.routeHistory[1]); 
+                    console.log("GEHE WIEDER Zur GLEICHEN SEITE");
                 } else {
                     router.navigateToPage(router.routeHistory[0]);
                 }
