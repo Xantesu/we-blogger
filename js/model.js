@@ -26,7 +26,6 @@ const model = {
 
     // Liefert alle Blogs des angemeldeten Nutzers
     getAllBlogs(callback) {
-        console.log("neue blomap");
         var request = gapi.client.request({
             'method': 'GET',
             'path': this.pathGetBlogs

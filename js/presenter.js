@@ -135,7 +135,6 @@ const presenter = {
 
     showOverview(id) {
         let blog = model.getBlog(id);
-        console.log(blog);
         this.blogId = id;
         model.getAllPostsOfBlog(id, (result) => {
             let page = overView.render(result, blog);
@@ -204,13 +203,15 @@ const presenter = {
     },
 
     deletePost(pId){
-        model.deletePost(this.blogId, pId, (result) => console.log(result));
-        this.refreshAll();
+        model.deletePost(this.blogId, pId, (result) => {
+            this.refreshAll();
+        });
     },
 
     createPost(title, content){
-        model.addNewPost(this.blogId, title, content, (result) => console.log(""));
-        this.refreshAll();
+        model.addNewPost(this.blogId, title, content, (result) => {
+            this.refreshAll();
+        });
     },
 
     updatePost(pid, title, content){
