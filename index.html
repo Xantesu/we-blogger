@@ -24,19 +24,19 @@ and open the template in the editor.
     </head>
     <body>
 
-        <div id="view-startseite">
-            <!--<h3>Willkommen bei Blogger!</h3>-->
-            <!--<button id="sign-in-or-out-button">Anmelden</button>-->
-            <!--<div id="auth-status"></div><hr>-->
-        </div>
+        <!-- <div id="view-startseite">
+            <h3>Willkommen bei Blogger!</h3>
+            <button id="sign-in-or-out-button">Anmelden</button>
+            <div id="auth-status"></div><hr>
+        </div>> -->
 
 
         <header id="mainheader">
         </header>
 
 
-        <nav id="mainnavbar">
-        </nav>
+        <!-- <nav id="mainnavbar">
+        </nav> -->
 
 
         <div id="main-content">
@@ -44,8 +44,8 @@ and open the template in the editor.
         </div>
 
 
-        <footer>
-        </footer>
+        <!-- <footer>
+        </footer> -->
 
 
         <br>
@@ -86,30 +86,32 @@ and open the template in the editor.
                         </ul>
                     </nav>
                 </header>
-                <article id="post" hidden>
-                    <header>
-                        <p class="title">%title</p>
-                        <p class="divider"></p>
-                        <p>Erscheinungsdatum: %published</p>
-                        <p>Letzte Änderung: %updated</p>
-                        <p>Anzahl Kommentare: %numberComments</p>
-                    </header>
-                    <footer>
-                        <nav id="post-navigation">
-                            <ul>
-                                <li>
-                                    <button class="overview-posts-opendetail" data-action="/detail">Detailansicht</button>
-                                </li>
-                                <li>
-                                    <button class="overview-posts-deletepost" data-action="/detail">Löschen</button>
-                                </li>
-                                <li>
-                                    <button class="overview-posts-editpost" data-action="/edit">Editieren</button>
-                                </li>
-                            </ul>
-                        </nav>                            
-                    </footer>
-                </article>
+                <div id="post-container">
+                    <article id="post" hidden>
+                        <header>
+                            <p class="title">%title</p>
+                            <p class="divider"></p>
+                            <p>Erscheinungsdatum: %published</p>
+                            <p>Letzte Änderung: %updated</p>
+                            <p>Anzahl Kommentare: %numberComments</p>
+                        </header>
+                        <footer>
+                            <nav id="post-navigation">
+                                <ul>
+                                    <li>
+                                        <button class="overview-posts-opendetail" data-action="/detail">Detailansicht</button>
+                                    </li>
+                                    <li>
+                                        <button class="overview-posts-deletepost" data-action="/detail">Löschen</button>
+                                    </li>
+                                    <li>
+                                        <button class="overview-posts-editpost" data-action="/edit">Editieren</button>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </footer>
+                    </article>
+                </div>
             </div>
             
             <div id=view-detail-post>

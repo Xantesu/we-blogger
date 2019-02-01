@@ -1,4 +1,5 @@
 #mainheader ul {
+    margin: 0;
     list-style-type: none;
     background-color: rgb(26, 26, 9);
     color: white;

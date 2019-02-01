@@ -12,6 +12,7 @@ const overView = {
         let addPostButton = buttons[1]; 
         addPostButton.addEventListener('click', helper.navEvent);
         page.removeAttribute("id");
+        let container = page.querySelector("div");
         for(let post of posts){
             let article = document.getElementById("post").cloneNode(true);
             article.hidden = false;
@@ -32,7 +33,8 @@ const overView = {
             buttonEdit.className = post["id"];
             buttonEdit.addEventListener('click', helper.navEvent);
 
-            page.append(article);
+            // page.appendChild(article);
+            container.appendChild(article);
         }
         return page;
     }

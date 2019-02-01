@@ -61,7 +61,7 @@ const presenter = {
         page.removeAttribute("id");
         let select = page.getElementsByTagName("select")[0];
         for (let [id, blog] of blogs) {
-            select.append(new Option(blog.name + " (" + blog.posts.totalItems + " Posts) Erscheinungsdatum: " + this.formatDate(false, blog.published) + " / Letzte Änderung:" +  this.formatDate(false, blog.updated), blog.id));
+            select.appendChild(new Option(blog.name + " (" + blog.posts.totalItems + " Posts) Erscheinungsdatum: " + this.formatDate(false, blog.published) + " / Letzte Änderung:" +  this.formatDate(false, blog.updated), blog.id));
         }
         select.addEventListener('change', function(event){
             let id = event.target.value;
