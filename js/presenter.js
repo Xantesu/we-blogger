@@ -23,7 +23,6 @@ const presenter = {
             let blog;
             model.getAllBlogs((result) => {
                 this.blogId = result[0].id;
-                //console.log(result);
                 let lastUpdate = result[0].updated;
                 let blogname = result[0].name;
                 var latestBlog = result[0];
@@ -31,21 +30,14 @@ const presenter = {
                     //console.log(result[i].name);
                     if(result[i].updated > lastUpdate){
                         this.blogId = result[i].id;
-                        lastUpdate = result[i].updated;
-                        blogname = result[i].name;
-                        latestBlog = result[i];
+                        // lastUpdate = result[i].updated;
+                        // blogname = result[i].name;
+                        // latestBlog = result[i];
                     }
                 }
                 console.log(this.owner);
 
-                //this.renderHeader(latestBlog);
-                //this.renderNavbar(result, latestBlog);
-
-
                 router.navigateToPage('/overview/' + this.blogId);
-                //this.showOverview();
-
-                //this.renderPostsOfBlog(this.blogId);
             });
 
         } 
@@ -138,10 +130,8 @@ const presenter = {
         this.blogId = id;
         model.getAllPostsOfBlog(id, (result) => {
             let page = overView.render(result, blog);
-            /*this.renderHeader(blog);*/
             this.replace(page);
         })
-/*         model.getAllBlogs((result) => this.renderNavbar(result, blog)); */
         this.renderNavbar(model.blogMap, blog);
     },
 

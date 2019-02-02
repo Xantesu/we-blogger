@@ -1,7 +1,10 @@
+@import url("https://fonts.googleapis.com/css?family=Fahkwang");
+
 #mainheader ul {
     margin: 0;
+    padding: 0;
     list-style-type: none;
-    background-color: rgb(26, 26, 9);
+    background-color: #06101C;
     color: white;
     display: flex;
     justify-content: space-between;
@@ -13,16 +16,27 @@
 }
 
 #mainheader select {
-    border: 1px solid black;
+    border: none;
     padding: .5em .75em .5em .75em;
-    box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 1);
-    background-color: #333;
+    box-shadow: 0em 0em .2em #f7f7f7;
+    background-color: #24404C;
     color: white;
 }
 
 #mainheader option {
     -webkit-appearance: none;
-    background: #222;
+    background: #24404C;
     border-top: 1px solid #444;
-    padding: .3em 1em .3em 1em;
+    padding: .3em 2em .3em 1em;
+}
+
+#mainheader .logo {
+    margin-left: 3em;
+    font-family: Fahkwang;
+    font-weight: 800;
+    letter-spacing: .25em;
+}
+
+#mainheader .login {
+    margin-right: 3em;
 }

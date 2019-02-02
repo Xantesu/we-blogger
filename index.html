@@ -21,6 +21,7 @@ and open the template in the editor.
         <link rel="stylesheet" type="text/css" href="./stylesheets/edit.css">
         <link rel="stylesheet" type="text/css" href="./stylesheets/detail.css">
         <link rel="stylesheet" type="text/css" href="./stylesheets/header.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     </head>
     <body>
 
@@ -28,7 +29,7 @@ and open the template in the editor.
             <h3>Willkommen bei Blogger!</h3>
             <button id="sign-in-or-out-button">Anmelden</button>
             <div id="auth-status"></div><hr>
-        </div>> -->
+        </div> -->
 
 
         <header id="mainheader">
@@ -78,14 +79,18 @@ and open the template in the editor.
                     <nav class="overview-nav">
                         <ul>
                             <li>
-                                <button id="overview-posts-action-blogview">Blogansicht anzeigen</button>
+                                <!-- <button id="overview-posts-action-blogview">Blogansicht anzeigen</button> -->
                             </li>
                             <li>
-                                <button data-action="/edit" class="000" id="action-addpost">Post hinzufügen</button>
+                                <i class="fas fa-pen" data-action="/edit" id="action-addpost"></i>
+                                <!-- <button data-action="/edit" class="000" id="action-addpost">Post hinzufügen</button> -->
                             </li>
                         </ul>
                     </nav>
                 </header>
+                <!-- <div id="add">
+
+                </div> -->
                 <div id="post-container">
                     <article id="post" hidden>
                         <header>

@@ -4,13 +4,13 @@
 body {
     font-family: 'Fira Sans', sans-serif;
     background: #FF8008;  /* fallback for old browsers */
-    background: #ebf3f9;
-
+    background: #f1f1f1;
     margin: 0;
 }
 
 
 article button {
+    cursor: pointer;
     border-radius: 10em;
     letter-spacing: .05em;
     font-weight: 100;
@@ -18,7 +18,7 @@ article button {
     height: 2em;
     border: none;
     color: white;
-    background: linear-gradient(147deg, #b1b0ab 0%, #989090 74%);
+    background: linear-gradient(147deg, #8e8e8e 0%, #676565 74%);
 
 }
 
@@ -33,7 +33,7 @@ article button {
 
 article {
     background-color: white;
-    border-radius: 20px;
+    border-radius: 1.5em;
     width: 100%;
     margin-left: 1em;
     margin-right: 1em;
@@ -54,8 +54,9 @@ h1 {
     font-size: 50px;
     padding-top: .25em;
     padding-bottom: .25em;
-    margin-left: 0;
-    color: rgb(4, 17, 23);
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+    color: rgb(9, 38, 51);
     border-top: .05em solid #00000036;
     border-bottom: .05em solid #00000036;
 }
@@ -68,8 +69,19 @@ h1 {
 }
 
 .overview-posts .overview-nav {
-    margin-bottom: 60px;
+    position: fixed;
+    right: 3em;
+    bottom: 3em;
     padding: none;
+}
+
+.fa-pen {
+    cursor: pointer;
+    color:white;
+    background-color: rgb(9, 38, 51);
+    font-size: 1.5em;
+    border-radius: 50%;
+    padding: 1em;
 }
 
 .overview-posts ul li {

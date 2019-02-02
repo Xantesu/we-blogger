@@ -4,14 +4,15 @@ const overView = {
 
     render(posts, blog){
         let page = document.getElementById("view-overview-posts").cloneNode(true);
+        page.removeAttribute("id");
         let buttons = page.getElementsByTagName("button");
         let openBlogButton = buttons[0];
         openBlogButton.addEventListener('click', function(){
             window.open(blog.url);
         });
-        let addPostButton = buttons[1]; 
+        // let addPostButton = buttons[1]; 
+        let addPostButton = page.querySelector("i");
         addPostButton.addEventListener('click', helper.navEvent);
-        page.removeAttribute("id");
         let container = page.querySelector("div");
         for(let post of posts){
             let article = document.getElementById("post").cloneNode(true);
