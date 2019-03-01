@@ -45,34 +45,19 @@ const presenter = {
             console.log(`Nutzer ${this.owner} hat sich abgemeldet.`);
             this.blogId = -1;
             this.owner = undefined;
+            let header = document.getElementById("mainheader");
+            header.firstElementChild.remove();
+            router.navigateToPage("/");
+        }
+        else if(!model.loggedIn && this.blogId === -1){
+           this.showLogin();
         }
     },
 
     getNavbar(blogs, currentBlog) {
-        let page = document.getElementById("blog-navigation").cloneNode(true); 
-        page.removeAttribute("id");
-        let select = page.getElementsByTagName("select")[0];
-        for (let [id, blog] of blogs) {
-            select.appendChild(new Option(blog.name + " (" + blog.posts.totalItems + " Posts) Erscheinungsdatum: " + this.formatDate(false, blog.published) + " / Letzte Änderung:" +  this.formatDate(false, blog.updated), blog.id));
-        }
-        select.addEventListener('change', function(event){
-            let id = event.target.value;
-            router.navigateToPage("/overview/" + id);
-        });
-        select.value = currentBlog.id;
-        return page;
     },
     
     renderNavbar(blogs, currentBlog) {
-        let page = document.getElementById("headertemp").cloneNode(true);
-        page.removeAttribute("id");
-        page.innerHTML = page.innerHTML.replace("%owner", this.owner);
-        let li = page.getElementsByTagName("li")[1];
-        li.append(this.getNavbar(blogs, currentBlog));
-        if(mainheader.firstElementChild){
-            mainheader.firstElementChild.remove();
-        }
-        mainheader.append(page);
     },
 
     renderHeader(latestBlog) {
@@ -102,6 +87,11 @@ const presenter = {
         }
     },
 
+    showNavbar(blogs, blog){
+        let mainheader = document.getElementById('mainheader');
+        mainheader.appendChild(navbarView.render(blogs, blog, this.owner));
+    },
+
     showEdit(postId) {
         let post = model.getPost(postId);
         if(!post){
@@ -111,7 +101,7 @@ const presenter = {
                 'published': new Date(),
                 'updated': new Date(),
             };
-        };
+        }
         let page = editView.render(post);
         this.replace(page);
     },
@@ -125,14 +115,19 @@ const presenter = {
         });
     },
 
+    showLogin(){
+        let page = loginView.render();
+        this.replace(page);
+    },
+
     showOverview(id) {
         let blog = model.getBlog(id);
         this.blogId = id;
         model.getAllPostsOfBlog(id, (result) => {
             let page = overView.render(result, blog);
             this.replace(page);
-        })
-        this.renderNavbar(model.blogMap, blog);
+        });
+        this.showNavbar(model.blogMap, blog);
     },
 
     getAmountOfPosts(){
@@ -194,7 +189,11 @@ const presenter = {
 
     deletePost(pId){
         model.deletePost(this.blogId, pId, (result) => {
-            this.refreshAll();
+            if(router.routeHistory[1].split('/')[1] === 'overview'){
+              overView.removePost(pId);
+            } else {
+                this.refreshAll();
+            }
         });
     },
 

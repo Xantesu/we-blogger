@@ -62,12 +62,12 @@
             $('#sign-in-or-out-button').html('Abmelden');
             $('#auth-status').html('Sie sind bei Google angemeldet.');
             model.loggedIn = true;
-            router.navigateToPage('');
+            router.navigateToPage('/');
         } else {
             $('#sign-in-or-out-button').html('Anmelden');
             $('#auth-status').html('Sie sind nicht bei Google angemeldet.');
             model.loggedIn = false;
-            router.navigateToPage('');
+            router.navigateToPage('/');
         }
     }
 

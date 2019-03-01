@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Fahkwang");
 
 #mainheader ul {
+    font-family: Roboto;
     margin: 0;
     padding: 0;
     list-style-type: none;
@@ -9,6 +10,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0px 6px 5px -4px #0c213a;
 }
 
 #mainheader ul li {
@@ -18,8 +20,8 @@
 #mainheader select {
     border: none;
     padding: .5em .75em .5em .75em;
-    box-shadow: 0em 0em .2em #f7f7f7;
-    background-color: #24404C;
+    border-bottom: 1.5px solid #505b69;
+    background-color: transparent;
     color: white;
 }
 
@@ -35,8 +37,31 @@
     font-family: Fahkwang;
     font-weight: 800;
     letter-spacing: .25em;
+    cursor: pointer;
+}
+
+#mainheader .login button {
+    cursor: pointer;
+    margin-left: 1em;
+    background-color: #337ab7;
+    color: white;
+    border: 1px solid #2576bd;
+    border-radius: .25em;
+    padding: .5em 1em;
+}
+
+#mainheader .login button:hover {
+    background-color: #163752;
+    border: 1px solid #0d2131;
 }
 
 #mainheader .login {
     margin-right: 3em;
+}
+
+.fa-blogger {
+    cursor: pointer;
+    font-size: 2em;
+    margin-left: .25em;
+    vertical-align: bottom;
 }

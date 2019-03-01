@@ -1,7 +1,16 @@
+.view-edit-post {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 input {
     display: block;
-    font-size: 50px;
+    font-size: 2em;
     width: 95%;
+    padding: .25em;
+    border: .1em solid #ccc;
+    border-radius: 4px;
 }
 
 #edit-post ul {

@@ -1,15 +1,75 @@
 "use strict";
 
-const overView = {
+const navbarView = {
+    render(blogs, currentBlog, owner){
+        let generateNavbar = function(){
+            let page = document.getElementById("blog-navigation").cloneNode(true);
+            page.removeAttribute("id");
+            let select = page.getElementsByTagName("select")[0];
+            for (let [id, blog] of blogs) {
+                select.appendChild(new Option(blog.name + " (" + blog.posts.totalItems + " Posts) Erscheinungsdatum: " + presenter.formatDate(false, blog.published) + " / Letzte Änderung:" +  presenter.formatDate(false, blog.updated), blog.id));
+            }
+            select.addEventListener('change', function(event){
+                let id = event.target.value;
+                router.navigateToPage("/overview/" + id);
+            });
+            select.value = currentBlog.id;
+            let blogRedirect = page.getElementsByTagName("i")[0];
+            blogRedirect.addEventListener("click", function(){
+                window.open(currentBlog.url);
+            });
+            return page;
+        };
+        let page = document.getElementById("headertemp").cloneNode(true);
+        page.removeAttribute("id");
+        helper.setDataInfo({ owner: owner}, page, false);
+        let li = page.getElementsByClassName("navigation")[0];
+        li.append(generateNavbar());
+        let homepage = page.getElementsByClassName("logo")[0];
+        homepage.addEventListener('click', function(){
+            window.open("http://localhost:8888", "_self");
+        });
+        let baseLogin = document.getElementById("sign-in-or-out-button");
+        let login_li = page.getElementsByClassName("login")[0];
+        let myLogin = baseLogin.cloneNode(true);
+        myLogin.removeAttribute("id");
+        myLogin.html = model.loggedIn ? 'Abmelden' : 'Anmelden';
+        myLogin.addEventListener('click', function () {
+            baseLogin.click();
+        });
+        login_li.appendChild(myLogin);
+        if(mainheader.firstElementChild){
+            mainheader.firstElementChild.remove();
+        }
+        return page;
+    }
+};
 
+
+const loginView = {
+      render(){
+         let page = document.getElementById("view-login").cloneNode(true);
+         page.removeAttribute("id");
+         let baseLogin = document.getElementById("sign-in-or-out-button");
+         let myLogin = document.getElementById("sign-in-or-out-button").cloneNode(true);
+         myLogin.removeAttribute("id");
+         myLogin.addEventListener('click', function(){
+           baseLogin.click();
+         });
+         page.appendChild(myLogin);
+         return page;
+      }
+};
+
+const overView = {
     render(posts, blog){
         let page = document.getElementById("view-overview-posts").cloneNode(true);
         page.removeAttribute("id");
         let buttons = page.getElementsByTagName("button");
         let openBlogButton = buttons[0];
-        openBlogButton.addEventListener('click', function(){
-            window.open(blog.url);
-        });
+        // openBlogButton.addEventListener('click', function(){
+        //     window.open(blog.url);
+        // });
         // let addPostButton = buttons[1]; 
         let addPostButton = page.querySelector("i");
         addPostButton.addEventListener('click', helper.navEvent);
@@ -18,28 +78,34 @@ const overView = {
             let article = document.getElementById("post").cloneNode(true);
             article.hidden = false;
             article.removeAttribute("id");
+            article.id = post.id;
             article.className = "overview-post";
             helper.setDataInfo(post, article, false);
-            let navitems = article.getElementsByTagName("li");
 
+            let navitems = article.getElementsByTagName("li");
             let buttonDetail = navitems[0].getElementsByTagName("button")[0];
             buttonDetail.className = post["id"];
             buttonDetail.addEventListener("click", helper.navEvent);
-
             let buttonDelete = navitems[1].getElementsByTagName("button")[0];
             buttonDelete.className = post["id"];
             buttonDelete.addEventListener('click', helper.deletePostEvent);
-
             let buttonEdit = navitems[2].getElementsByTagName("button")[0];
             buttonEdit.className = post["id"];
             buttonEdit.addEventListener('click', helper.navEvent);
-
             // page.appendChild(article);
             container.appendChild(article);
         }
         return page;
+    },
+    removePost(pId){
+        let posts = document.getElementsByTagName("article");
+        for(let post of posts){
+           if(post.id === pId){
+               post.remove();
+               break;
+           }
+        }
     }
-
 };
 
 const detailView = {
@@ -59,6 +125,7 @@ const detailView = {
         button.addEventListener('click', function(){
             router.navigateToPage("/overview/" + post.blog.id);
         });
+        let container = page.getElementsByClassName("post-container")[0];
         if(!(comments === undefined)){
             for(let comment of comments){
                 let article = document.getElementById("comment").cloneNode(true);
@@ -74,7 +141,7 @@ const detailView = {
                         console.log("Dieser Kommentar wurde erfolgreich gelöscht.");
                     }
                 });
-                page.append(article);
+                container.append(article);
             }
         }
         return page;
@@ -111,7 +178,7 @@ const editView = {
         return page;
 
     }
-}
+};
 
 const helper = {
     setDataInfo(object, page, longDate) {

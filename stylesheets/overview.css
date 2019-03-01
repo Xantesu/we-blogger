@@ -18,11 +18,15 @@ article button {
     height: 2em;
     border: none;
     color: white;
-    background: linear-gradient(147deg, #8e8e8e 0%, #676565 74%);
-
+    /*background: linear-gradient(147deg, #8e8e8e 0%, #676565 74%);*/
+    background: linear-gradient(147deg, #337ab7 0%, #256398 74%);
 }
 
-#post-container {
+article button:hover {
+    background: #153756;
+}
+
+.post-container {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;

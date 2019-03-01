@@ -21,15 +21,11 @@ and open the template in the editor.
         <link rel="stylesheet" type="text/css" href="./stylesheets/edit.css">
         <link rel="stylesheet" type="text/css" href="./stylesheets/detail.css">
         <link rel="stylesheet" type="text/css" href="./stylesheets/header.css">
+        <link rel="stylesheet" type="text/css" href="./stylesheets/login.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     </head>
     <body>
-
-        <!-- <div id="view-startseite">
-            <h3>Willkommen bei Blogger!</h3>
-            <button id="sign-in-or-out-button">Anmelden</button>
-            <div id="auth-status"></div><hr>
-        </div> -->
+       <!--Toggle Login/Logout -->
 
 
         <header id="mainheader">
@@ -59,17 +55,27 @@ and open the template in the editor.
                 <!--<p>Blog: %name (%numberPosts Posts)</p>-->
                 <!--<p>Erscheinungsdatum: %published / Letzte Änderung: %updated</p>-->
             <!--</header>-->
-        
+
+            <div id="view-login" class="view-startseite">
+                <h3 class="welcome">Willkommen bei Blogger</h3>
+                <div id="auth-status" class="login-status"></div>
+            </div>
+
+            <button id="sign-in-or-out-button">Anmelden</button>
+
             <nav id="blog-navigation">
+                <span>Meine Blogs: </span>
                 <select id="select">
                 </select>
+                <i class="fab fa-blogger"></i>
             </nav>
 
-            <div id="headertemp">
+            <div id="headertemp" class="header">
                 <ul>
                     <li class="logo"><p>Blogger</p></li>
                     <li class="navigation"></li>
-                    <li class="login">Eingeloggt: %owner <button id="sign-in-or-out-button">Anmelden</button></li>
+                    <!--<li class="login">Eingeloggt: <button id="sign-in-or-out-button">Anmelden</button></li>-->
+                    <li class="login">Eingeloggt: %owner</li>
                 </ul>
             </div>
 
@@ -91,7 +97,7 @@ and open the template in the editor.
                 <!-- <div id="add">
 
                 </div> -->
-                <div id="post-container">
+                <div class="post-container">
                     <article id="post" hidden>
                         <header>
                             <p class="title">%title</p>
@@ -119,8 +125,9 @@ and open the template in the editor.
                 </div>
             </div>
             
-            <div id=view-detail-post>
+            <div id="view-detail-post" class="detail">
                 <h1>Detailansicht</h1>
+                <div class="post-container">
                 <article id="detail-post">
                     <header>
                         <p class="title">Title: %title</p>
@@ -165,10 +172,12 @@ and open the template in the editor.
                         </nav>
                     </footer>
                 </article>
+                </div>
             </div>
 
-            <div id="view-edit-post">
+            <div id="view-edit-post" class="view-edit-post">
                 <h1>Edit Post</h1>
+                <div class="post-container">
                 <article id="edit-post">
 <!--<li>-->
  <!--71 >   >   >   >   >   >   >   <label for="email">Email:</label>-->
@@ -197,6 +206,7 @@ and open the template in the editor.
                         </nav>
                     </form>
                 </article>
+                </div>
             </div>
 
 
