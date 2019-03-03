@@ -1,30 +1,39 @@
 "use strict";
 
 const navbarView = {
+    generateNavbar(currentBlog, blogs){
+        let page = document.getElementById("blog-navigation").cloneNode(true);
+        page.removeAttribute("id");
+        let select = page.getElementsByTagName("select")[0];
+        for (let [id, blog] of blogs) {
+            select.appendChild(new Option(blog.name + " (" + blog.posts.totalItems + " Posts) Erscheinungsdatum: " + presenter.formatDate(false, blog.published) + " / Letzte Änderung:" +  presenter.formatDate(false, blog.updated), blog.id));
+        }
+        select.addEventListener('change', function(event){
+            let id = event.target.value;
+            router.navigateToPage("/overview/" + id);
+        });
+        select.value = currentBlog.id;
+        let blogRedirect = page.getElementsByTagName("i")[0];
+        blogRedirect.addEventListener("click", function(){
+            window.open(currentBlog.url);
+        });
+        return page;
+    },
+
+    updateSelect(currentBlog, blogs){
+        let nav = document.getElementsByClassName("navigation")[0];
+        if(nav.firstElementChild){
+            nav.firstElementChild.remove();
+        }
+        nav.appendChild(navbarView.generateNavbar(currentBlog, blogs));
+    },
+
     render(blogs, currentBlog, owner){
-        let generateNavbar = function(){
-            let page = document.getElementById("blog-navigation").cloneNode(true);
-            page.removeAttribute("id");
-            let select = page.getElementsByTagName("select")[0];
-            for (let [id, blog] of blogs) {
-                select.appendChild(new Option(blog.name + " (" + blog.posts.totalItems + " Posts) Erscheinungsdatum: " + presenter.formatDate(false, blog.published) + " / Letzte Änderung:" +  presenter.formatDate(false, blog.updated), blog.id));
-            }
-            select.addEventListener('change', function(event){
-                let id = event.target.value;
-                router.navigateToPage("/overview/" + id);
-            });
-            select.value = currentBlog.id;
-            let blogRedirect = page.getElementsByTagName("i")[0];
-            blogRedirect.addEventListener("click", function(){
-                window.open(currentBlog.url);
-            });
-            return page;
-        };
         let page = document.getElementById("headertemp").cloneNode(true);
         page.removeAttribute("id");
         helper.setDataInfo({ owner: owner}, page, false);
         let li = page.getElementsByClassName("navigation")[0];
-        li.append(generateNavbar());
+        li.append(navbarView.generateNavbar(currentBlog, blogs));
         let homepage = page.getElementsByClassName("logo")[0];
         homepage.addEventListener('click', function(){
             window.open("http://localhost:8888", "_self");
@@ -66,11 +75,6 @@ const overView = {
         let page = document.getElementById("view-overview-posts").cloneNode(true);
         page.removeAttribute("id");
         let buttons = page.getElementsByTagName("button");
-        let openBlogButton = buttons[0];
-        // openBlogButton.addEventListener('click', function(){
-        //     window.open(blog.url);
-        // });
-        // let addPostButton = buttons[1]; 
         let addPostButton = page.querySelector("i");
         addPostButton.addEventListener('click', helper.navEvent);
         let container = page.querySelector("div");
@@ -92,11 +96,11 @@ const overView = {
             let buttonEdit = navitems[2].getElementsByTagName("button")[0];
             buttonEdit.className = post["id"];
             buttonEdit.addEventListener('click', helper.navEvent);
-            // page.appendChild(article);
             container.appendChild(article);
         }
         return page;
     },
+
     removePost(pId){
         let posts = document.getElementsByTagName("article");
         for(let post of posts){

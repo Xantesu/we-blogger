@@ -18,29 +18,19 @@ const presenter = {
                 this.owner = result.displayName;
                 console.log(`Nutzer ${this.owner} hat sich angemeldet.`);
             });
-            this.blogId = 1;
-            // Hier kommt Ihr Code hin 
-            let blog;
             model.getAllBlogs((result) => {
                 this.blogId = result[0].id;
                 let lastUpdate = result[0].updated;
-                let blogname = result[0].name;
-                var latestBlog = result[0];
                 for(let i in result){
-                    //console.log(result[i].name);
                     if(result[i].updated > lastUpdate){
                         this.blogId = result[i].id;
-                        // lastUpdate = result[i].updated;
-                        // blogname = result[i].name;
-                        // latestBlog = result[i];
                     }
                 }
                 console.log(this.owner);
-
                 router.navigateToPage('/overview/' + this.blogId);
+                this.showNavbar(model.blogMap, model.getBlog(this.blogId));
             });
-
-        } 
+        }
         if(!model.loggedIn && this.blogId != -1) { // Wenn der Nuzter eingelogged war und sich abgemeldet hat
             console.log(`Nutzer ${this.owner} hat sich abgemeldet.`);
             this.blogId = -1;
@@ -52,12 +42,6 @@ const presenter = {
         else if(!model.loggedIn && this.blogId === -1){
            this.showLogin();
         }
-    },
-
-    getNavbar(blogs, currentBlog) {
-    },
-    
-    renderNavbar(blogs, currentBlog) {
     },
 
     renderHeader(latestBlog) {
@@ -127,7 +111,6 @@ const presenter = {
             let page = overView.render(result, blog);
             this.replace(page);
         });
-        this.showNavbar(model.blogMap, blog);
     },
 
     getAmountOfPosts(){
@@ -171,40 +154,46 @@ const presenter = {
         model.deleteComment(this.blogId, pId, cId, (result) => console.log(result));
     },
 
-    refreshAll(){
+    refreshAll(redirect){
         model.getAllBlogs((result) => {
             console.log("Refreshed Blogs.");
             model.getAllPostsOfBlog(this.blogId, (result) => {
-                console.log("Refreshed Posts."); 
-                if (router.routeHistory[0] === ""){
-                    router.navigateToPage(router.routeHistory[1]);
-                } else if(router.routeHistory[1].split("/")[1] === "overview") {
-                    router.navigateToPage(router.routeHistory[1]); 
-                } else {
-                    router.navigateToPage(router.routeHistory[0]);
+                console.log("Refreshed Posts.");
+                if(redirect){
+                    if (router.routeHistory[0] === ""){
+                        router.navigateToPage(router.routeHistory[1]);
+                    } else if(router.routeHistory[1].split("/")[1] === "overview") {
+                        router.navigateToPage(router.routeHistory[1]);
+                    } else {
+                        router.navigateToPage(router.routeHistory[0]);
+                    }
                 }
-            }); 
+                navbarView.updateSelect(model.getBlog(this.blogId), model.blogMap);
+            });
         });
     },
 
     deletePost(pId){
         model.deletePost(this.blogId, pId, (result) => {
             if(router.routeHistory[1].split('/')[1] === 'overview'){
-              overView.removePost(pId);
+                this.refreshAll(false);
+                overView.removePost(pId);
             } else {
-                this.refreshAll();
+                this.refreshAll(true);
             }
         });
     },
 
     createPost(title, content){
         model.addNewPost(this.blogId, title, content, (result) => {
-            this.refreshAll();
+            this.refreshAll(true);
         });
     },
 
     updatePost(pid, title, content){
-        model.updatePost(this.blogId, pid, title, content, (result) => console.log(result)); 
+        model.updatePost(this.blogId, pid, title, content, (result) => {
+            this.refreshAll(true);
+        });
     },
 
     createPostContent(content) {

@@ -32,3 +32,22 @@
     height: 1px;
     background-color: rgb(200, 200, 200);
 }
+
+.comment-divider-container {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 3em;
+    margin-top: 2em;
+}
+
+.comment-divider-container .comment-divider {
+    display: inline-block;
+    background-color: #c7c7c7;
+    width: 40%;
+    height: .25em;
+}
+
+.comment-divider-title {
+    display: inline-block;
+    margin: 0;
+}
