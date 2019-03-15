@@ -14,7 +14,14 @@
 }
 
 #mainheader ul li {
-    margin: .25em;
+    margin-left: 2em;
+    margin-right: 2em;
+}
+
+#mainheader .navigation nav{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
 }
 
 #mainheader select {
@@ -33,16 +40,19 @@
 }
 
 #mainheader .logo {
-    margin-left: 3em;
     font-family: Fahkwang;
     font-weight: 800;
     letter-spacing: .25em;
     cursor: pointer;
+    flex: 1;
+}
+
+#mainheader .navigation {
+    flex: 1;
 }
 
 #mainheader .login button {
     cursor: pointer;
-    margin-left: 1em;
     background-color: #337ab7;
     color: white;
     border: 1px solid #2576bd;
@@ -56,12 +66,17 @@
 }
 
 #mainheader .login {
-    margin-right: 3em;
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
 }
+
+
 
 .fa-blogger {
     cursor: pointer;
     font-size: 2em;
-    margin-left: .25em;
     vertical-align: bottom;
 }

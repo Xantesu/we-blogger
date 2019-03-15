@@ -42,9 +42,9 @@ article {
     margin-left: 1em;
     margin-right: 1em;
     margin-bottom: 2em;
-    padding-top: 10px;
-    padding-bottom: 20px; 
-    padding-left: 30px;
+    padding-top: .5em;
+    padding-bottom: 1em; 
+    padding-left: 2em;
     box-shadow: 0em 0em .5em #313131;
 }
 
@@ -55,7 +55,7 @@ article {
 }
 
 h1 {
-    font-size: 50px;
+    font-size: 3.5em;
     padding-top: .25em;
     padding-bottom: .25em;
     margin-top: 1.5em;
@@ -90,7 +90,7 @@ h1 {
 
 .overview-posts ul li {
     display: inline;
-    margin-right: 5px;
+    margin-right: .5em;
 }
 
 .overview-post ul {
@@ -99,19 +99,19 @@ h1 {
 
 .overview-post p {
     color: #464646;
-    line-height: 10px;
+    line-height: .75em;
 }
 
 .overview-post .title {
     color: #2b2b2b;
-    line-height: 1px;
-    font-size: 40px;
+    line-height: .15em;
+    font-size: 2.25em;
     font-weight: bold;
 }
 
 .overview-post .divider {
     width: 95%;
-    height: 1px;
+    height: .125em;
     background-color: rgb(200, 200, 200);
 }
 

@@ -75,7 +75,9 @@ and open the template in the editor.
                     <li class="logo"><p>Blogger</p></li>
                     <li class="navigation"></li>
                     <!--<li class="login">Eingeloggt: <button id="sign-in-or-out-button">Anmelden</button></li>-->
-                    <li class="login">Eingeloggt: %owner</li>
+                    <li class="login">
+                        <span>Eingeloggt: %owner</span>
+                    </li>
                 </ul>
             </div>
 
@@ -116,7 +118,7 @@ and open the template in the editor.
                                         <button class="overview-posts-deletepost" data-action="/detail">Löschen</button>
                                     </li>
                                     <li>
-                                        <button class="overview-posts-editpost" data-action="/edit">Editieren</button>
+                                        <button class="overview-posts-editpost" data-action="/edit">Bearbeiten</button>
                                     </li>
                                 </ul>
                             </nav>
@@ -129,26 +131,27 @@ and open the template in the editor.
                 <h1>Detailansicht</h1>
                 <div class="post-container">
                 <article id="detail-post">
-                    <header>
-                        <p class="title">Title: %title</p>
+                    <header class="detail-header">
+                        <p class="title">%title</p>
                         <p class="date">Erscheinungsdatum: %published</p>
                         <p class="date">Letzte Änderung: %updated</p>
                         <p class="divider"></p>
                     </header>
                     <section>
-                        <p>Inhalt: %content</p>
+                        <p>%content</p>
                     </section>
+                    <p class="divider"></p>
                     <footer>
                         <nav>
                             <ul>
                                 <li>
-                                    <button>Post loeschen</button>
+                                    <button>Loeschen</button>
                                 </li>
                                 <li>
-                                    <button data-action="/edit">Post editieren</button>
+                                    <button data-action="/edit">Bearbeiten</button>
                                 </li>
                                 <li>
-                                    <button data-action="/overview">zurück</button>
+                                    <button data-action="/overview">Zurück</button>
                                 </li>
                             </ul>
                         </nav>
@@ -159,19 +162,21 @@ and open the template in the editor.
                         <h3 class="comment-divider-title">Comment Section</h3>
                         <div class="comment-divider"></div>
                     </div>
-                <article id="comment" hidden>
+                <article id="comment" class="comment" hidden>
                     <header>
                         <p>Autor: %author</p>
                         <p>geschrieben am: %published</p>
                     </header>
+                    <div class="divider"></div>
                     <section>
-                        <p>Inhalt: %content</p>
+                        <p>%content</p>
                     </section>
+                    <div class="divider"></div>
                     <footer>
                         <nav>
                             <ul>
                                 <li>
-                                    <button id="detail-post-deletecomment">Kommentar loeschen</button>                 
+                                    <button id="detail-post-deletecomment">loeschen</button>                 
                                 </li>
                             </ul>
                         </nav>

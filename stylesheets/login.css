@@ -11,6 +11,8 @@
     margin-top: 5em;
 }
 
+
+
 .welcome {
     font-size: 3em;
     margin: 0;
@@ -33,4 +35,16 @@
 .view-startseite button:hover {
     background-color: #163752;
     border: 1px solid #0d2131;
+}
+
+@media only screen and (max-width: 1760px) {
+    .welcome {
+        font-size: 2.5em;
+    }
+}
+
+@media only screen and (max-width: 1465px) {
+    .welcome {
+        font-size: 2em;
+    }
 }

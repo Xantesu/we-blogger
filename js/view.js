@@ -130,7 +130,7 @@ const detailView = {
             router.navigateToPage("/overview/" + post.blog.id);
         });
         let container = page.getElementsByClassName("post-container")[0];
-        if(!(comments === undefined)){
+        if(comments){
             for(let comment of comments){
                 let article = document.getElementById("comment").cloneNode(true);
                 article.removeAttribute("id");
@@ -147,6 +147,10 @@ const detailView = {
                 });
                 container.append(article);
             }
+        } else {
+            let noCommentsParagraph = document.createElement("p");
+            noCommentsParagraph.innerHTML = "Es gibt anscheinend keine Kommentare.";
+            page.appendChild(noCommentsParagraph);
         }
         return page;
     }
