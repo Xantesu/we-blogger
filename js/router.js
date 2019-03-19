@@ -52,14 +52,12 @@ const router = {
     router.addRoute('overview', function(){
         console.log("Router: Aufruf von showOverview");
         let id = window.location.pathname.split("/overview/")[1].trim();
-        console.log("ID: " + id);
         presenter.showOverview(id);
     });
 
     router.addRoute('edit', function(){
         console.log("Router: Aufruf von showEdit");
         let id = window.location.pathname.split("/edit/")[1].trim();
-        console.log("ID: " + id);
         presenter.showEdit(id);
     });
 
@@ -67,6 +65,11 @@ const router = {
         console.log("Router: Aufruf von showDetail");
         let id = window.location.pathname.split("/detail/")[1].trim();
         presenter.showDetail(id);
+    });
+
+    router.addRoute('create', function(){
+        console.log("Router: Aufruf von showCreate");
+        presenter.showCreate();
     });
 
     //Methoden an den router binden

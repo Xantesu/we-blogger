@@ -5,12 +5,21 @@
 }
 
 input {
-    display: block;
+    display: inline-block;
+    margin: 0 auto;
+    width: 90%;
     font-size: 2em;
-    width: 95%;
     padding: .25em;
     border: .1em solid #ccc;
     border-radius: 4px;
+}
+
+textarea {
+    font-family: Roboto;
+    font-size: 1em;
+    margin: 0 auto;
+    width: 90%;
+    resize: none;
 }
 
 #edit-post ul {
@@ -19,10 +28,6 @@ input {
 
 #edit-post ul li {
     display: inline;
-}
-
-textarea {
-    width: 95%;
 }
 
 .divider {

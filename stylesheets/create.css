@@ -1,0 +1,27 @@
+.view-create-post {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#create-post ul {
+    list-style-type: none;
+}
+
+#create-post ul li {
+    display: inline;
+}
+
+.paragraph-button {
+
+    width: 90%;
+    margin: 1em;
+}
+
+.textarea-container {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
