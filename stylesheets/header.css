@@ -1,16 +1,23 @@
 @import url("https://fonts.googleapis.com/css?family=Fahkwang");
 
+#mainheader {
+    background-color: #06101C;
+    box-shadow: 0px 6px 5px -4px #0c213a;
+}
+
 #mainheader ul {
     font-family: Roboto;
-    margin: 0;
+    height: 4.5em;
+    width: 50%;
+    margin: 0 auto;
     padding: 0;
     list-style-type: none;
-    background-color: #06101C;
+    
     color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0px 6px 5px -4px #0c213a;
+    
 }
 
 #mainheader ul li {
@@ -19,12 +26,14 @@
 }
 
 #mainheader .navigation nav{
+    height: 100%;
     display: flex;
     align-items: center;
+    justify-content: center;
     flex-direction: row;
 }
 
-#mainheader select {
+/* #mainheader select {
     border: none;
     padding: .5em .75em .5em .75em;
     border-bottom: 1.5px solid #505b69;
@@ -37,31 +46,96 @@
     background: #24404C;
     border-top: 1px solid #444;
     padding: .3em 2em .3em 1em;
-}
+} */
 
 #mainheader .logo {
     font-family: Fahkwang;
     font-weight: 800;
-    letter-spacing: .25em;
+    letter-spacing: .125em;
     cursor: pointer;
     flex: 1;
 }
 
 #mainheader .navigation {
+    height: 100%;
     flex: 1;
 }
 
-#mainheader .login button {
-    cursor: pointer;
-    background-color: #337ab7;
+#mainheader .navigation .dropdown {
+
+    height: 100%;
+    position: relative;
+    display: inline-block;
+}
+
+#mainheader .navigation .dropdown:hover .dropdown-content {
+    display: block;
+}
+
+#mainheader .navigation .dropbtn {
+    height: 100%;
+    background-color: #06101C;
     color: white;
-    border: 1px solid #2576bd;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+#mainheader .navigation .dropbtn:hover {
+    background-color: #728195;
+}
+
+#mainheader .navigation i {
+    margin-left: .5em;
+}
+
+#mainheader .navigation .dropdown-content {
+    border-radius: .5em;
+    box-sizing: border-box;
+    left: -19.5em;
+    overflow: hidden;
+    background-color: #255a85;
+    display: none;
+    position: absolute;
+    text-align: center;
+    width: 45em;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+#mainheader .navigation .dropdown-content > a {
+    height: 0%;
+}
+
+#mainheader .navigation .dropdown-content .link{
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.link-clicked {
+    background-color: #163752;  
+}
+
+#mainheader .navigation .dropdown-content a:hover{
+    background-color: #163752;    
+}
+
+
+#mainheader .login button {
+    margin-left: .5em;
+    cursor: pointer;
+    background-color: #505b69;
+    color: white;
+    border: 1px solid #0d2131;
     border-radius: .25em;
     padding: .5em 1em;
 }
 
 #mainheader .login button:hover {
-    background-color: #163752;
+    background-color: #728195;
     border: 1px solid #0d2131;
 }
 
@@ -72,8 +146,6 @@
     align-items: center;
     justify-content: flex-end;
 }
-
-
 
 .fa-blogger {
     cursor: pointer;

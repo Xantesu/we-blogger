@@ -94,12 +94,12 @@ const model = {
     // Löscht den Kommentar cid zu Post pid in Blog bid, Callback wird ohne result aufgerufen
     deleteComment(bid, pid, cid, callback) {
         var path = this.pathBlogs + "/" + bid + '/posts/' + pid + "/comments/" + cid;
-        console.log(path);
+        // console.log(path);
         var request = gapi.client.request({
             'method': 'DELETE',
             'path': path
         });
-        this.commentMap.remove(cid);
+        this.commentMap.delete(cid);
         request.execute(callback);
     },
 

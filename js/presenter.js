@@ -111,6 +111,7 @@ const presenter = {
         model.getAllPostsOfBlog(id, (result) => {
             let page = overView.render(result, blog);
             this.replace(page);
+            navbarView.updateSelect(blog, model.blogMap);
         });
     },
 

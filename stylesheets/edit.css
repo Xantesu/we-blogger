@@ -10,12 +10,14 @@ input {
     width: 90%;
     font-size: 2em;
     padding: .25em;
+    margin-bottom: .5em;
     border: .1em solid #ccc;
     border-radius: 4px;
 }
 
 textarea {
     font-family: Roboto;
+    margin: .5em 0em;
     font-size: 1em;
     margin: 0 auto;
     width: 90%;
@@ -36,3 +38,31 @@ textarea {
     background-color: rgb(200, 200, 200);
 }
 
+.view-edit-post article {
+    padding: 1em 0 0 0;
+}
+
+.view-edit-post textarea {
+    margin: .5em 0em;
+    width: 90%;
+}
+
+.view-edit-post form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.view-edit-post form nav {
+    width: 100%;
+}
+
+.view-edit-post form nav button{
+    width: 15%;
+}
+
+.view-edit-post .date {
+    color: #727272;
+    align-self: flex-start;
+    margin: .25em 1.5em;
+}

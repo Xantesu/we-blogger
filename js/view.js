@@ -1,28 +1,61 @@
 "use strict";
 
 const navbarView = {
-    generateNavbar(currentBlog, blogs) {
-        let page = document.getElementById("blog-navigation").cloneNode(true);
-        page.removeAttribute("id");
-        let select = page.getElementsByTagName("select")[0];
-        for (let [id, blog] of blogs) {
-            select.appendChild(new Option(blog.name + " (" + blog.posts.totalItems + " Posts) Erscheinungsdatum: " + presenter.formatDate(false, blog.published) + " / Letzte Änderung:" + presenter.formatDate(false, blog.updated), blog.id));
-        }
-        select.addEventListener('change', function (event) {
-            let id = event.target.value;
-            router.navigateToPage("/overview/" + id);
-        });
-        select.value = currentBlog.id;
-        let blogRedirect = page.getElementsByTagName("i")[0];
-        blogRedirect.addEventListener("click", function () {
-            window.open(currentBlog.url);
-        });
-        return page;
+    // generateNavbar(currentBlog, blogs) {
+    //     let page = document.getElementById("blog-navigation").cloneNode(true);
+    //     page.removeAttribute("id");
+    //     let select = page.getElementsByTagName("select")[0];
+    //     for (let [id, blog] of blogs) {
+    //         select.appendChild(new Option(blog.name + " (" + blog.posts.totalItems + " Posts) Erscheinungsdatum: " + presenter.formatDate(false, blog.published) + " / Letzte Änderung:" + presenter.formatDate(false, blog.updated), blog.id));
+    //     }
+    //     select.addEventListener('change', function (event) {
+    //         let id = event.target.value;
+    //         router.navigateToPage("/overview/" + id);
+    //     });
+    //     select.value = currentBlog.id;
+    //     let blogRedirect = page.getElementsByTagName("i")[0];
+    //     blogRedirect.addEventListener("click", function () {
+    //         window.open(currentBlog.url);
+    //     });
+    //     return page;
+    // },
+
+    // updateSelect(currentBlog, blogs) {
+    //     let nav = document.getElementsByClassName("navigation")[0];
+    //     if (nav.firstElementChild) {
+    //         nav.firstElementChild.remove();
+    //     }
+    //     nav.appendChild(navbarView.generateNavbar(currentBlog, blogs));
+    // },
+
+    generateNavbar(currentBlog, blogs){
+       let page = document.getElementById("blog-navigation").cloneNode(true);
+       page.removeAttribute("id");
+       let container = page.getElementsByClassName("dropdown-content")[0]; 
+       let blogRedirect = page.getElementsByTagName("i")[1];
+       blogRedirect.addEventListener("click", function () {
+           window.open(currentBlog.url);
+       });
+       for(let [id, blog] of blogs){
+           let a = container.getElementsByTagName("a")[0].cloneNode(true);
+           a.hidden = false;
+           a.className = blog.id + " link";
+           if(blog === currentBlog){
+               a.className += " link-clicked"; 
+           } else {
+               a.className = a.className.replace("link-clicked", "");
+           }
+    //         (blog.name + " (" + blog.posts.totalItems + " Posts) Erscheinungsdatum: " + presenter.formatDate(false, blog.published) + " / Letzte Änderung:" + presenter.formatDate(false, blog.updated), blog.id));
+           a.innerHTML = blog.name + " (" + blog.posts.totalItems + " Posts) Erscheinungsdatum: " + presenter.formatDate(false, blog.published) + " / Letzte Änderung:" + presenter.formatDate(false, blog.updated);   
+           a.addEventListener('click', helper.navEvent);
+           container.appendChild(a);
+       }
+       return page;
     },
 
-    updateSelect(currentBlog, blogs) {
+    updateSelect(currentBlog, blogs){
         let nav = document.getElementsByClassName("navigation")[0];
-        if (nav.firstElementChild) {
+        if(nav.firstElementChild){
             nav.firstElementChild.remove();
         }
         nav.appendChild(navbarView.generateNavbar(currentBlog, blogs));
@@ -79,6 +112,7 @@ const overView = {
         let buttons = page.getElementsByTagName("button");
         let addPostButton = page.querySelector("i");
         addPostButton.addEventListener('click', helper.navEvent);
+        page.innerHTML = page.innerHTML.replace("%name", blog["name"]);
         let container = page.querySelector("div");
         for (let post of posts) {
             let article = document.getElementById("post").cloneNode(true);
@@ -137,6 +171,7 @@ const detailView = {
                 let article = document.getElementById("comment").cloneNode(true);
                 article.removeAttribute("id");
                 article.hidden = false;
+                article.className = comment.id;
                 helper.setDataInfo(comment, article, true);
                 let delComment = article.getElementsByTagName("button")[0];
                 delComment.className = comment.id;
@@ -144,6 +179,7 @@ const detailView = {
                     if (confirm("Möchten Sie wirklich diesen Kommentar löschen?")) {
                         let cid = event.target.className;
                         presenter.deleteComment(post.id, cid);
+                        detailView.removeComment(cid);
                         console.log("Dieser Kommentar wurde erfolgreich gelöscht.");
                     }
                 });
@@ -155,7 +191,18 @@ const detailView = {
             page.appendChild(noCommentsParagraph);
         }
         return page;
-    }
+    },
+
+    removeComment(cId){
+        let page = document.getElementById("main-content");
+        let articles = page.getElementsByTagName("article");
+        for(let comment of articles){
+            if(comment.className === cId){
+                comment.remove();
+                break;
+            }
+        }
+    },
 };
 
 const editView = {
@@ -342,8 +389,10 @@ const helper = {
     },
 
     navEvent(event) {
+        event.preventDefault();
         let target = event.target;
-        let pId = target.className;
+        // let pId = target.className;
+        let pId = target.classList[0];
         router.navigateToPage(target.dataset.action + "/" + pId);
     },
 

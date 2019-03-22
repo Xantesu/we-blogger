@@ -67,12 +67,31 @@ and open the template in the editor.
 
         <button id="sign-in-or-out-button">Anmelden</button>
 
-        <nav id="blog-navigation">
-            <span>Meine Blogs: </span>
+        <!-- <nav id="blog-navigation"> -->
+            <!-- <span>Meine Blogs: </span> -->
+            <!-- <span></span>
             <select id="select">
             </select>
             <i class="fab fa-blogger"></i>
+        </nav> -->
+
+        <!-- Dropdown Menü https://www.w3schools.com/css/tryit.asp?filename=trycss_dropdown_button -->
+        <!-- Litty hover -->
+        <nav id="blog-navigation">
+            <div class="dropdown">
+                <button class="dropbtn">
+                    Blogs
+                    <small><i class="fas fa-caret-down"></i>
+                    </small>
+                </button>
+                <div class="dropdown-content">
+                    <a href="" data-action="/overview" hidden></a>
+                </div>
+            </div>
+            <i class="fab fa-blogger"></i>
         </nav>
+
+        <!-- Logo Button links von Blogger -->
 
         <div id="headertemp" class="header">
             <ul>
@@ -88,7 +107,8 @@ and open the template in the editor.
         </div>
 
         <div id="view-overview-posts" class="overview-posts">
-            <h1>Übersicht der Posts</h1>
+            <!-- <h1>Übersicht der Posts</h1> -->
+            <h1>%name</h1>
             <header>
                 <nav class="overview-nav">
                     <ul>
@@ -205,6 +225,8 @@ and open the template in the editor.
                     <!--77 >   >   >   >   >   >   </li>-->
                     <form class="form" method="get">
                         <input id=title" type="text" name="title" placeholder="Title"></input>
+                        <p class="date">Erscheinungsdatum: %published</p>
+                        <p class="date">Letzte Änderung: %updated</p>
                         <p class="divider"></p>
                         <!--<textarea id="title" type="text" name="title" cols="60" rows="8" placeholder="Title">%title</textarea>-->
                         <div class="textarea-container">
@@ -215,8 +237,6 @@ and open the template in the editor.
                         <br>
                         <div class="divider"></div>
                         <!-- <textarea id="content" type="text" name="content" cols="60" rows="8" placeholder="Content">%content</textarea> -->
-                        <p>Erscheinungsdatum: %published</p>
-                        <p>Letzte Änderung: %updated</p>
                         <nav>
                             <ul>
                                 <li>
