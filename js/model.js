@@ -147,7 +147,6 @@ const model = {
     // Löscht den Post pid aus dem Blog bid, Callback wird ohne result aufgerufen
     deletePost(bid, pid, callback) {
         var path = this.pathBlogs + "/" + bid + '/posts/' + pid;
-        console.log(path);
         var request = gapi.client.request({
             'method': 'DELETE',
             'path': path

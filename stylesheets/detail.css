@@ -113,3 +113,43 @@
     margin: .5em;
     padding: 0;
 }
+
+@media only screen and (max-width: 940px) {
+    article button {
+        width: 8em;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    #detail-post .title {
+        font-size: 1.5em;
+    }
+}
+
+@media only screen and (max-width: 740px) {
+    article button {
+       font-size: .75em;
+    }
+    #detail-post .date {
+        font-size: .8em;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    article button {
+        font-size: .65em;
+    }
+}
+
+@media only screen and (max-width: 570px) {
+    article button {
+        font-size: .5em;
+    }
+    #detail-post .title {
+        font-size: 1em;
+    }
+    #detail-post .date {
+        font-size: .65em;
+    }
+
+}

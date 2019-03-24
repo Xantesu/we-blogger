@@ -58,11 +58,51 @@ textarea {
 }
 
 .view-edit-post form nav button{
-    width: 15%;
+    width: 10em;;
 }
 
 .view-edit-post .date {
     color: #727272;
     align-self: flex-start;
     margin: .25em 1.5em;
+}
+
+@media only screen and (max-width: 940px) {
+    article button {
+        width: 8em;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    #detail-post .title {
+        font-size: 1.5em;
+    }
+}
+
+@media only screen and (max-width: 740px) {
+    article button {
+       font-size: .75em;
+    }
+    .view-edit-post .date {
+        font-size: .8em;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    article button {
+        font-size: .65em;
+    }
+}
+
+@media only screen and (max-width: 570px) {
+    article button {
+        font-size: .5em;
+    }
+    #detail-post .title {
+        font-size: 1em;
+    }
+    .view-edit-post .date {
+        font-size: .65em;
+    }
+
 }

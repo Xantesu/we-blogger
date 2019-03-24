@@ -14,13 +14,15 @@ article button {
     border-radius: 10em;
     letter-spacing: .05em;
     font-weight: 100;
-    width: 15%;
+    width: 10em;
     height: 2em;
     border: none;
     color: white;
     /*background: linear-gradient(147deg, #8e8e8e 0%, #676565 74%);*/
     background: linear-gradient(147deg, #337ab7 0%, #256398 74%);
 }
+
+
 
 article button:hover {
     background: #153756;
@@ -33,7 +35,7 @@ article button:hover {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 50%;
+    width: 80%;
     margin-top: 2em;
 }
 
@@ -41,7 +43,7 @@ article {
     flex: 1;
     background-color: white;
     border-radius: 1.5em;
-    width: 100%;
+    width: 70%;
     margin-left: 1em;
     margin-right: 1em;
     margin-bottom: 2em;
@@ -49,6 +51,11 @@ article {
     padding-bottom: 1em; 
     padding-left: 2em;
     box-shadow: 0em 0em .5em #313131;
+    transition: width .25s linear;
+}
+
+.overview-posts article:hover {
+    width: 75%;
 }
 
 .overview-posts {
@@ -91,6 +98,10 @@ h1 {
     padding: 1em;
 }
 
+.fa-pen:hover {
+    background-color: #728195;
+}
+
 .overview-posts ul li {
     display: inline;
     margin-right: .5em;
@@ -120,3 +131,61 @@ h1 {
 
 
 
+@media only screen and (max-width: 940px) {
+    article button {
+        width: 8em;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .overview-post .title {
+        font-size: 1.5em;
+    }
+
+    .fa-pen {
+        font-size: 1.25em;
+    }
+
+    .overview-posts .overview-nav {
+        right: 2em;
+        bottom: 2em;
+    }
+}
+
+@media only screen and (max-width: 740px) {
+    article button {
+
+        font-size: .75em;
+    }
+
+    .overview-posts .overview-nav {
+        right: 1em;
+        bottom: 1em;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    article button {
+
+        font-size: .65em;
+    }
+}
+
+@media only screen and (max-width: 570px) {
+    article button {
+        font-size: .5em;
+    }
+
+    .overview-post .title {
+        font-size: 1em;
+    }
+
+    .post-info {
+        font-size: .75em;
+    }
+
+    .overview-posts .overview-nav {
+        right: 0em;
+        bottom: .5em;
+    }
+}

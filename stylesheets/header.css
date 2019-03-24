@@ -62,14 +62,13 @@
 }
 
 #mainheader .navigation .dropdown {
-
     height: 100%;
     position: relative;
     display: inline-block;
 }
 
 #mainheader .navigation .dropdown:hover .dropdown-content {
-    display: block;
+    max-height: 50em;
 }
 
 #mainheader .navigation .dropbtn {
@@ -92,20 +91,23 @@
 
 #mainheader .navigation .dropdown-content {
     border-radius: .5em;
+
     box-sizing: border-box;
     left: -19.5em;
     overflow: hidden;
     background-color: #255a85;
-    display: none;
     position: absolute;
+    display: block;
     text-align: center;
     width: 45em;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
+    max-height: 0;
+    transition: max-height 2s linear;
 }
 
-#mainheader .navigation .dropdown-content > a {
-    height: 0%;
+#dropdown-clicked {
+    max-height: 50em !important;
 }
 
 #mainheader .navigation .dropdown-content .link{
@@ -151,4 +153,40 @@
     cursor: pointer;
     font-size: 2em;
     vertical-align: bottom;
+}
+
+@media only screen and (max-width: 1215px) {
+    #mainheader .logo {
+        display: none;
+    }
+
+    #mainheader .navigation .dropdown-content {
+        left: -15em;
+    }
+}
+
+@media only screen and (max-width: 820px) {
+    #mainheader ul {
+        width: 75%;
+    }
+
+    #mainheader .navigation .dropdown-content {
+        width: 40em;
+        font-size: .85em;
+        left: -7.5em;
+    }
+
+
+}
+
+@media only screen and (max-width: 570px) {
+    #mainheader ul {
+        width: 90%;
+    }
+
+    #mainheader .navigation .dropdown-content {
+        width: 30em;
+        font-size: .65em;
+        left: 0em;
+    }
 }

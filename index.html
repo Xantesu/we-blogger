@@ -29,36 +29,16 @@ and open the template in the editor.
 </head>
 
 <body>
-    <!--Toggle Login/Logout -->
-
 
     <header id="mainheader">
     </header>
 
-
-    <!-- <nav id="mainnavbar">
-        </nav> -->
-
-
     <div id="main-content">
-
     </div>
-
-
-    <!-- <footer>
-        </footer> -->
-
-
-    <br>
 
     <!----------------------     TEMPLATES       --------------------------------------->
 
     <div id="templates" hidden>
-        <!--<header id="header">-->
-        <!--<p>Nutzer: %owner</p>-->
-        <!--<p>Blog: %name (%numberPosts Posts)</p>-->
-        <!--<p>Erscheinungsdatum: %published / Letzte Änderung: %updated</p>-->
-        <!--</header>-->
 
         <div id="view-login" class="view-startseite">
             <h3 class="welcome">Willkommen bei Blogger</h3>
@@ -67,16 +47,6 @@ and open the template in the editor.
 
         <button id="sign-in-or-out-button">Anmelden</button>
 
-        <!-- <nav id="blog-navigation"> -->
-            <!-- <span>Meine Blogs: </span> -->
-            <!-- <span></span>
-            <select id="select">
-            </select>
-            <i class="fab fa-blogger"></i>
-        </nav> -->
-
-        <!-- Dropdown Menü https://www.w3schools.com/css/tryit.asp?filename=trycss_dropdown_button -->
-        <!-- Litty hover -->
         <nav id="blog-navigation">
             <div class="dropdown">
                 <button class="dropbtn">
@@ -91,30 +61,23 @@ and open the template in the editor.
             <i class="fab fa-blogger"></i>
         </nav>
 
-        <!-- Logo Button links von Blogger -->
-
         <div id="headertemp" class="header">
             <ul>
                 <li class="logo">
                     <p>Blogger</p>
                 </li>
                 <li class="navigation"></li>
-                <!--<li class="login">Eingeloggt: <button id="sign-in-or-out-button">Anmelden</button></li>-->
                 <li class="login">
-                    <span>Eingeloggt: %owner</span>
+                    <span> %owner</span>
                 </li>
             </ul>
         </div>
 
         <div id="view-overview-posts" class="overview-posts">
-            <!-- <h1>Übersicht der Posts</h1> -->
             <h1>%name</h1>
             <header>
                 <nav class="overview-nav">
                     <ul>
-                        <li>
-                            <!-- <button id="overview-posts-action-blogview">Blogansicht anzeigen</button> -->
-                        </li>
                         <li>
                             <i class="fas fa-pen" data-action="/create" id="action-addpost"></i>
                             <!-- <button data-action="/edit" class="000" id="action-addpost">Post hinzufügen</button> -->
@@ -122,17 +85,14 @@ and open the template in the editor.
                     </ul>
                 </nav>
             </header>
-            <!-- <div id="add">
-
-                </div> -->
             <div class="post-container">
-                <article id="post" hidden>
+                <article id="post" class="overview-post" hidden>
                     <header>
                         <p class="title">%title</p>
-                        <p class="divider"></p>
-                        <p>Erscheinungsdatum: %published</p>
-                        <p>Letzte Änderung: %updated</p>
-                        <p>Anzahl Kommentare: %numberComments</p>
+                        <div class="divider"></div>
+                        <p class="post-info">Erscheinungsdatum: %published</p>
+                        <p class="post-info">Letzte Änderung: %updated</p>
+                        <p class="post-info">Anzahl Kommentare: %numberComments</p>
                     </header>
                     <footer>
                         <nav id="post-navigation">
@@ -229,11 +189,17 @@ and open the template in the editor.
                         <p class="date">Letzte Änderung: %updated</p>
                         <p class="divider"></p>
                         <!--<textarea id="title" type="text" name="title" cols="60" rows="8" placeholder="Title">%title</textarea>-->
+                            <button class="paragraph-button prepend">
+                                <i class="fas fa-caret-up"></i>
+                            </button>
                         <div class="textarea-container">
                             <textarea id="content-textarea" type="text" name="content" cols="60" rows="8" placeholder="Content"
                                 hidden></textarea>
 
                         </div>
+                            <button class="paragraph-button append">
+                                <i class="fa fa-caret-down"></i>
+                            </button>
                         <br>
                         <div class="divider"></div>
                         <!-- <textarea id="content" type="text" name="content" cols="60" rows="8" placeholder="Content">%content</textarea> -->

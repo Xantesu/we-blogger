@@ -18,6 +18,7 @@ const presenter = {
                 this.owner = result.displayName;
                 console.log(`Nutzer ${this.owner} hat sich angemeldet.`);
             });
+            // Lade alle Blogs in die blogMap vom Model und übergebe die ID des aktuellsten Blogs zu this.blogId
             model.getAllBlogs((result) => {
                 this.blogId = result[0].id;
                 let lastUpdate = result[0].updated;
@@ -26,6 +27,7 @@ const presenter = {
                         this.blogId = result[i].id;
                     }
                 }
+                // Routing zur Übersicht, zusätzlich wird der Header erstellt
                 router.navigateToPage('/overview/' + this.blogId);
                 this.showNavbar(model.blogMap, model.getBlog(this.blogId));
             });
@@ -34,11 +36,12 @@ const presenter = {
             console.log(`Nutzer ${this.owner} hat sich abgemeldet.`);
             this.blogId = -1;
             this.owner = undefined;
+            // Entferne den Header und navigiere zurück zur Startseite
             let header = document.getElementById("mainheader");
             header.firstElementChild.remove();
             router.navigateToPage("/");
         }
-        else if(!model.loggedIn && this.blogId === -1){
+        else if(!model.loggedIn && this.blogId === -1){ // Wenn der Nutzer auf die Seite kommt und nicht eingeloggt war
            this.showLogin();
         }
     },
@@ -60,13 +63,14 @@ const presenter = {
         mainheader.append(page);
     },
 
+    // Ersetze den gesamtent Inhalt aus main-content mit der übergebenen page. Genutzt um templates zu wechseln
     replace(page) {
         let main = document.getElementById("main-content");
         if(main.firstElementChild){
             main.firstElementChild.remove();
         }
         if(page){
-            main.append(page);
+            main.appendChild(page);
         }
     },
 
@@ -82,6 +86,8 @@ const presenter = {
     },
 
     showCreate(){
+        // Funktion render bekommt ein Array mit einem Objekt, welches den Inhalt der Seite repräsentieren soll
+        // Erklärung zu dem Objekt bei der Funktion presenter.extractPostInformation
         let page = createView.render([{
             id: 0,
             html: 'p',
@@ -119,7 +125,6 @@ const presenter = {
         return model.getBlog(this.blogId).posts.totalItems;
     },
 
-
     // Gibt den Post mit der Id bid aus
     renderPostsOfBlog(bid) {
         let posts;
@@ -156,6 +161,8 @@ const presenter = {
         model.deleteComment(this.blogId, pId, cId, (result) => console.log(result));
     },
 
+    // Durch die Funktionen getAllBlogs und getAllPostsOfBlog werden blog- und postMap vom Blog aktualisiert
+    // Zusätzlich bestimmt der boolean 'redirect' darüber, ob es zu einer Weiterleitung kommt
     refreshAll(redirect){
         model.getAllBlogs((result) => {
             console.log("Refreshed Blogs.");
@@ -177,10 +184,13 @@ const presenter = {
 
     deletePost(pId){
         model.deletePost(this.blogId, pId, (result) => {
+            // Wenn ein Post von der Übersicht aus gelöscht wird, soll es zu keiner Weiterleitung kommen.
+            // Stattdessen wird der Post von der View aus einfach gelöscht.
             if(router.routeHistory[1].split('/')[1] === 'overview'){
                 this.refreshAll(false);
                 overView.removePost(pId);
             } else {
+                // Falls der Post beispielsweise von der Detail Seite gelöscht wird, soll zB zur Übersicht weitergeleitet werden
                 this.refreshAll(true);
             }
         });
@@ -206,21 +216,17 @@ const presenter = {
     // Funktion, die den Inhalt von einem Post bezogen auf die verwendeten HTML Elemente aufteilt.
     // Als Ergebnis wird ein Array aus Objekten, welche das verwendete HTML Elemente, weitere Optionen,
     // vorhandene innere Element und den Inhalt speichert, zurückgegeben.
+    // Diese Objekte werden dann beim Bearbeiten oder Erstellen eines Posts verwendet, um die Formatierung beizubehalten
     extractPostInformation(content) {
-//         let post = `Hello its me!<span style="background-color: white; font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 14px; text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse non rutrum ante. Vivamus vehicula, purus a congue semper, lorem erat pellentesque sapien, nec vulputate nisl mauris vel felis. Etiam posuere, leo eget convallis fermentum, arcu metus pharetra arcu, nec elementum nulla nunc maximus ligula. Donec laoreet feugiat velit in malesuada. Sed placerat nibh nisl, pellentesque ornare orci malesuada ac.</span><br />
-// <a href="http://3.bp.blogspot.com/-jH2HX5VKXO4/XIfp0ZYEW4I/AAAAAAAAABw/eIxvynh948gChekY94pDECf9822alZhxgCK4BGAYYCw/s1600/sea-1337565_1920.jpg" imageanchor="1"><img border="0" height="211" src="https://3.bp.blogspot.com/-jH2HX5VKXO4/XIfp0ZYEW4I/AAAAAAAAABw/eIxvynh948gChekY94pDECf9822alZhxgCK4BGAYYCw/s320/sea-1337565_1920.jpg" width="320" /></a><a href="http://1.bp.blogspot.com/-x5Risrfj1iw/XIfp09R4u9I/AAAAAAAAAB4/YZThr-thmKUnido1vy_g_jfntRK9pxarACK4BGAYYCw/s1600/maldives-1993704_1920.jpg" imageanchor="1"><img border="0" height="179" src="https://1.bp.blogspot.com/-x5Risrfj1iw/XIfp09R4u9I/AAAAAAAAAB4/YZThr-thmKUnido1vy_g_jfntRK9pxarACK4BGAYYCw/s320/maldives-1993704_1920.jpg" width="320" /></a><br />
-// <span style="background-color: white; font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 14px; text-align: justify;">Nullam condimentum leo massa. Morbi tincidunt turpis vitae fringilla tincidunt. Integer quis semper dolor, quis lacinia nisi. Sed rutrum dui vel fermentum dapibus. Fusce sagittis, eros a accumsan imperdiet, diam ligula tincidunt mi, eu commodo sapien mi id erat. Sed vitae hendrerit odio. Mauris ut urna non lacus lobortis interdum. In dolor mauris, ultrices eu venenatis at, consectetur et sem. Vestibulum eget rutrum arcu.</span>
-// <br />
-// That is really cool man
-// <div class="separator" style="clear: both; text-align: center;">
-// <a href="https://1.bp.blogspot.com/-8kC-xxO4A6c/W_aXRPSogsI/AAAAAAAAAAw/oLLRg2u4SjAhYEBSTnyAhzF1xjTdsjcpwCLcBGAs/s1600/wallpaper.jpg" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="1067" data-original-width="1600" height="213" src="https://1.bp.blogspot.com/-8kC-xxO4A6c/W_aXRPSogsI/AAAAAAAAAAw/oLLRg2u4SjAhYEBSTnyAhzF1xjTdsjcpwCLcBGAs/s320/wallpaper.jpg" width="320" /></a></div>
-// <br />`;
         let post = content;
 
+        // Regulärer Ausdruck, der alle Tags, inklusive attribute, ausfindig macht
         let regex = /<(.|\n)*?>/ig;
 
+        // Alle gefundenen Tags werden direkt im Array gespeichert (z.B. re_result = ['<span class="xyz" XYZ>], [</span>])
         let re_result = post.match(regex);
         if(re_result === null){
+            // Post beinhaltet keine HTML Tags und Formatierungen
             return [
                 {
                     html: 'none',
@@ -230,25 +236,25 @@ const presenter = {
                 },
             ];
         }
-
+        // Array, der alle Objekte speichert und am Ende der Funktion zurückgegeben wird
         let post_result = [];
-
         let special_elems = ["a", "img"];
         special_elems = [];
-
         let counter = 0;
+        // Counter, der genutzt wird um eine eindeutige ID für die Objekte zu erstellen
         let idcounter = 0;
         while(post.length > 1){
-            // console.log("POST RIGHT NOW");
-            // console.log(post);
+            // Entferne whitespaces, die sonst Probleme bereiten würden
             post = post.replace(/^\s+/, '');
             let my_match = re_result[counter];
-            // console.log("I matched " + my_match);
-            //Falls es Text gibt, der ohne HTML Tags angezeigt werden soll
+            // Falls es Text gibt, der ohne HTML Tags angezeigt werden soll
+            // Genauer: my_match beinhaltelt nun zB. <span>. Wenn sich dieses Tag also nicht am Anfang des Posts befindet,
+            // folgt hier erstmal Text, der zu keinem Tag gehört
             if(post.indexOf(my_match) !== 0){
                 let postObject = {
                     id: idcounter,
                     html: 'none',
+                    // Folglich ist der Inhalt zunächst alles vom Anfang des Posts bis zum Tag
                     full_html: post.slice(0, post.indexOf(my_match)),
                     content: post.slice(0, post.indexOf(my_match)),
                     innerElements: undefined,
@@ -258,6 +264,7 @@ const presenter = {
                 post = post.substr(post.indexOf(my_match), post.length);
                 continue;
             }
+            // Spezialfall
             if(my_match === "<br />"){
                 let postObject = {
                     id: idcounter,
@@ -272,12 +279,14 @@ const presenter = {
                 post = post.substr(6, post.length);
                 continue;
             }
+            // Extrahiere das exakte HTML Element
+            // bsp. aus <span class="xyz" style="xyz" XYZ> wird 'span' extrahiert
             let html_element = my_match.match(/\w+/)[0];
-            // console.log("Current HTML Element " + html_element);
+            // baue das dazugehöriger Endtag auf, bsp: </span>
             let html_element_ending = "</" + html_element + ">";
-            // console.log("Current HTML Ending " + html_element_ending);
+            // Wenn das nächste gefundene Tag das dazugehörige Endtag ist, muss nurnoch der Inhalt zwischen den Tags
+            // extrahiert werden
             if(re_result[counter+1] === html_element_ending){
-                // console.log("Next Element in Array is also the ending");
                 let firstIndex = post.indexOf(my_match);
                 let secondIndex = post.indexOf(html_element_ending);
                 let content = post.slice(firstIndex + my_match.length, secondIndex);
@@ -292,12 +301,9 @@ const presenter = {
                 post_result.push(postObject);
                 counter += 2;
                 post = post.substr(secondIndex + html_element_ending.length, post.length);
-                // console.log(post_result);
                 continue;
-            } else if(special_elems.indexOf(html_element) > -1) { 
-
+            // Wenn nicht, gibt es also weitere Tags im Inneren
             } else {
-                // console.log("Found nested element");
                 let firstIndex = post.indexOf(my_match);
                 let postObject = {
                     id: idcounter,
@@ -308,6 +314,7 @@ const presenter = {
                 }
                 idcounter++;
                 let pointedElement = re_result[counter+1];
+                // Iteriere durch alle folgenden Tags, bis das Ende gefunden wird
                 while(pointedElement !== html_element_ending){
                     postObject.innerElements.push(pointedElement);
                     postObject.full_html += pointedElement;
@@ -317,10 +324,8 @@ const presenter = {
                 postObject.innerElements.push(pointedElement);
                 postObject.full_html += pointedElement;
                 post_result.push(postObject);
-                // post = post.substr(firstIndex, post.indexOf(pointedElement) + pointedElement.length);
                 post = post.substr(post.indexOf(pointedElement)+pointedElement.length, post.length);
                 counter+=2;
-                // console.log(post_result);
             }
         }
         return post_result;
