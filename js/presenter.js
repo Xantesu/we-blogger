@@ -115,6 +115,8 @@ const presenter = {
         let blog = model.getBlog(id);
         this.blogId = id;
         model.getAllPostsOfBlog(id, (result) => {
+            console.log(result);
+            console.log(model.postMap);
             let page = overView.render(result, blog);
             this.replace(page);
             navbarView.updateSelect(blog, model.blogMap);
@@ -191,7 +193,8 @@ const presenter = {
                 overView.removePost(pId);
             } else {
                 // Falls der Post beispielsweise von der Detail Seite gelöscht wird, soll zB zur Übersicht weitergeleitet werden
-                this.refreshAll(true);
+                this.refreshAll(false);
+                router.navigateToPage("/");
             }
         });
     },
@@ -282,6 +285,21 @@ const presenter = {
             // Extrahiere das exakte HTML Element
             // bsp. aus <span class="xyz" style="xyz" XYZ> wird 'span' extrahiert
             let html_element = my_match.match(/\w+/)[0];
+            // Ausnahmebehandlung für img
+            if(html_element === "img"){
+                let postObject = {
+                    id: idcounter,
+                    html: html_element,
+                    full_html: my_match,
+                    content: undefined,
+                    innerElements: undefined,
+                }
+                idcounter++;
+                counter++;
+                post = post.substr(my_match.length, post.length);
+                post_result.push(postObject);
+                continue;
+            }
             // baue das dazugehöriger Endtag auf, bsp: </span>
             let html_element_ending = "</" + html_element + ">";
             // Wenn das nächste gefundene Tag das dazugehörige Endtag ist, muss nurnoch der Inhalt zwischen den Tags

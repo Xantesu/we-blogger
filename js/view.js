@@ -1,65 +1,37 @@
 "use strict";
 
 const navbarView = {
-    // generateNavbar(currentBlog, blogs) {
-    //     let page = document.getElementById("blog-navigation").cloneNode(true);
-    //     page.removeAttribute("id");
-    //     let select = page.getElementsByTagName("select")[0];
-    //     for (let [id, blog] of blogs) {
-    //         select.appendChild(new Option(blog.name + " (" + blog.posts.totalItems + " Posts) Erscheinungsdatum: " + presenter.formatDate(false, blog.published) + " / Letzte Änderung:" + presenter.formatDate(false, blog.updated), blog.id));
-    //     }
-    //     select.addEventListener('change', function (event) {
-    //         let id = event.target.value;
-    //         router.navigateToPage("/overview/" + id);
-    //     });
-    //     select.value = currentBlog.id;
-    //     let blogRedirect = page.getElementsByTagName("i")[0];
-    //     blogRedirect.addEventListener("click", function () {
-    //         window.open(currentBlog.url);
-    //     });
-    //     return page;
-    // },
-
-    // updateSelect(currentBlog, blogs) {
-    //     let nav = document.getElementsByClassName("navigation")[0];
-    //     if (nav.firstElementChild) {
-    //         nav.firstElementChild.remove();
-    //     }
-    //     nav.appendChild(navbarView.generateNavbar(currentBlog, blogs));
-    // },
-
-    generateNavbar(currentBlog, blogs){
-       let page = document.getElementById("blog-navigation").cloneNode(true);
-       page.removeAttribute("id");
-       let dropdown_btn = page.getElementsByClassName("dropbtn")[0];
-       let container = page.getElementsByClassName("dropdown-content")[0]; 
-       let blogRedirect = page.getElementsByTagName("i")[1];
-       blogRedirect.addEventListener("click", function () {
-           window.open(currentBlog.url);
-       });
-       dropdown_btn.addEventListener('click', function(event){
-           container.id = container.id === "dropdown-clicked" ? "" : "dropdown-clicked";
-       });
-       for(let [id, blog] of blogs){
-           let a = container.getElementsByTagName("a")[0].cloneNode(true);
-           a.hidden = false;
-           a.className = blog.id + " link";
-           if(blog === currentBlog){
-               a.className += " link-clicked"; 
-           } else {
-               a.className = a.className.replace("link-clicked", "");
-           }
-    //         (blog.name + " (" + blog.posts.totalItems + " Posts) Erscheinungsdatum: " + presenter.formatDate(false, blog.published) + " / Letzte Änderung:" + presenter.formatDate(false, blog.updated), blog.id));
-           a.innerHTML = blog.name + " (" + blog.posts.totalItems + " Posts) Erscheinungsdatum: " + presenter.formatDate(false, blog.published) + " / Letzte Änderung:" + presenter.formatDate(false, blog.updated);   
-           a.addEventListener('click', helper.navEvent);
-           container.appendChild(a);
-       }
-       return page;
+    generateNavbar(currentBlog, blogs) {
+        let page = document.getElementById("blog-navigation").cloneNode(true);
+        page.removeAttribute("id");
+        let dropdown_btn = page.getElementsByClassName("dropbtn")[0];
+        let container = page.getElementsByClassName("dropdown-content")[0];
+        let blogRedirect = page.getElementsByTagName("i")[1];
+        blogRedirect.addEventListener("click", function () {
+            window.open(currentBlog.url);
+        });
+        dropdown_btn.addEventListener('click', function (event) {
+            container.id = container.id === "dropdown-clicked" ? "" : "dropdown-clicked";
+        });
+        for (let [id, blog] of blogs) {
+            let a = container.getElementsByTagName("a")[0].cloneNode(true);
+            a.hidden = false;
+            a.className = blog.id + " link";
+            if (blog === currentBlog) {
+                a.className += " link-clicked";
+            } else {
+                a.className = a.className.replace("link-clicked", "");
+            }
+            a.innerHTML = blog.name + " (" + blog.posts.totalItems + " Posts) Erscheinungsdatum: " + presenter.formatDate(false, blog.published) + " / Letzte Änderung:" + presenter.formatDate(false, blog.updated);
+            a.addEventListener('click', helper.navEvent);
+            container.appendChild(a);
+        }
+        return page;
     },
 
-    updateSelect(currentBlog, blogs){
+    updateSelect(currentBlog, blogs) {
         let nav = document.getElementsByClassName("navigation")[0];
-        if(nav.firstElementChild){
+        if (nav.firstElementChild) {
             nav.firstElementChild.remove();
         }
         nav.appendChild(navbarView.generateNavbar(currentBlog, blogs));
@@ -165,9 +137,9 @@ const detailView = {
         editButton.addEventListener('click', helper.navEvent);
         editButton.className = post.id;
         let backbutton = page.getElementsByTagName("button")[2];
-        backbutton.className = post.id;
-        backbutton.addEventListener('click', helper.navEvent); 
-            // router.navigateToPage("/overview/" + post.blog.id);
+        backbutton.className = post.blog.id;
+        backbutton.addEventListener('click', helper.navEvent);
+        // router.navigateToPage("/overview/" + post.blog.id);
         // });
         let container = page.getElementsByClassName("post-container")[0];
         if (comments) {
@@ -197,11 +169,11 @@ const detailView = {
         return page;
     },
 
-    removeComment(cId){
+    removeComment(cId) {
         let page = document.getElementById("main-content");
         let articles = page.getElementsByTagName("article");
-        for(let comment of articles){
-            if(comment.className === cId){
+        for (let comment of articles) {
+            if (comment.className === cId) {
                 comment.remove();
                 break;
             }
@@ -221,11 +193,11 @@ const editView = {
         let counter = 100000;
         let buttons = page.getElementsByTagName("button");
         // Melde Eventlistener für die Buttons, die einen neuen Paragraph erstellen, an
-        buttons[0].addEventListener('click', function(event){
+        buttons[0].addEventListener('click', function (event) {
             helper.addParagraphEvent(event, page, post_object, counter);
             container++;
         });
-        buttons[1].addEventListener('click', function(event){
+        buttons[1].addEventListener('click', function (event) {
             helper.addParagraphEvent(event, page, post_object, counter);
             container++;
         });
@@ -246,16 +218,19 @@ const editView = {
             let elem = document.getElementById("content-textarea").cloneNode(false);
             elem.removeAttribute("id");
             elem.hidden = false;
-            if (obj.html === 'p' || obj.html === 'none' || obj.html === 'span') {
+            if (obj.html === 'p' || obj.html === 'none' || obj.html === 'span' || (obj.html === 'div' && !obj.innerElements)) {
                 elem.value = obj.content;
                 container.appendChild(elem);
-            } else if (obj.html === 'div' || obj.html === 'a') {
+            } else if ((obj.html === 'div' && obj.innerElements) || obj.html === 'a' || obj.html === "img") {
                 let pic;
                 if (obj.html === 'div') {
                     pic = document.createElement("div");
                     pic.innerHTML = obj.full_html;
                 } else if (obj.html === 'a') {
                     pic = document.createElement("a");
+                    pic.innerHTML = obj.full_html;
+                } else if (obj.html === 'img'){
+                    pic = document.createElement("div");
                     pic.innerHTML = obj.full_html;
                 }
                 pic.id = obj.id;
@@ -276,15 +251,15 @@ const createView = {
         let form = page.querySelector("form");
         let buttons = page.getElementsByTagName("button");
         let counter = 10000;
-        buttons[0].addEventListener('click', function(event){
+        buttons[0].addEventListener('click', function (event) {
             helper.addParagraphEvent(event, page, post_object, container);
             counter++;
         });
-        buttons[1].addEventListener('click', function(event){
+        buttons[1].addEventListener('click', function (event) {
             helper.addParagraphEvent(event, page, post_object, container);
             counter++;
         });
-        buttons[2].addEventListener('click', function(event){
+        buttons[2].addEventListener('click', function (event) {
             event.preventDefault();
             let container = page.getElementsByClassName("textarea-container")[0];
             let title = form.title.value;
@@ -351,8 +326,21 @@ const helper = {
                 } else {
                     post_content += childNodes[i].value;
                 }
-            } else if (content_obj && helper.arrayContainsElement(helper.imageElements, content_obj.html)) {
+            } 
+            if (content_obj && helper.arrayContainsElement(helper.imageElements, content_obj.html)) {
                 post_content += content_obj.full_html;
+            }
+            if(content_obj && content_obj.html === 'div'){
+                if(content_obj.innerElements){
+                    post_content += content_obj.full_html;
+                } else {
+                    let tags = content_obj.full_html.match(/<(.|\n)*?>/ig);
+                    if (tags) {
+                        post_content += tags[0] + childNodes[i].value + tags[1];
+                    } else {
+                        post_content += childNodes[i].value;
+                    }
+                }
             }
         }
         // Der String, der den neuen Post Inhalt beinhaltet
@@ -379,7 +367,7 @@ const helper = {
         return array.indexOf(element) > -1;
     },
 
-    addParagraphEvent(event, page, post_object, counter){
+    addParagraphEvent(event, page, post_object, counter) {
         let container = page.getElementsByClassName("textarea-container")[0];
         event.preventDefault();
         let target = event.target;
@@ -403,6 +391,6 @@ const helper = {
     },
 
     textElements: ['p', 'span', 'none'],
-    imageElements: ['div', 'a', 'br'],
+    imageElements: ['a', 'br', 'img'],
 
 }
